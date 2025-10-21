@@ -315,15 +315,33 @@
                     <select id="login-class" required 
                             class="w-full px-3 py-2 bg-oldPaper border-2 border-darkBrown rounded-lg focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all duration-300 outline-none font-medieval text-sm text-dark">
                         <option value="">Pilih Kelas</option>
-                        <option value="7A">Kelas 7A</option>
-                        <option value="7B">Kelas 7B</option>
-                        <option value="7C">Kelas 7C</option>
-                        <option value="8A">Kelas 8A</option>
-                        <option value="8B">Kelas 8B</option>
-                        <option value="8C">Kelas 8C</option>
-                        <option value="9A">Kelas 9A</option>
-                        <option value="9B">Kelas 9B</option>
-                        <option value="9C">Kelas 9C</option>
+                        <option value="X1">X1</option>
+                        <option value="X2">X2</option>
+                        <option value="X3">X3</option>
+                        <option value="X4">X4</option>
+                        <option value="X5">X5</option>
+                        <option value="X6">X6</option>
+                        <option value="X7">X7</option>
+                        <option value="X8">X8</option>
+                        <option value="X9">X9</option>
+                        <option value="XI MIPA 1">XI MIPA 1</option>
+                        <option value="XI MIPA 2">XI MIPA 2</option>
+                        <option value="XI MIPA 3">XI MIPA 3</option>
+                        <option value="XI MIPA 4">XI MIPA 4</option>
+                        <option value="XI MIPA 5">XI MIPA 5</option>
+                        <option value="XI IPS 1">XI IPS 1</option>
+                        <option value="XI IPS 2">XI IPS 2</option>
+                        <option value="XI IPS 3">XI IPS 3</option>
+                        <option value="XI IPS 4">XI IPS 4</option>
+                        <option value="XII MIPA 1">XII MIPA 1</option>
+                        <option value="XII MIPA 2">XII MIPA 2</option>
+                        <option value="XII MIPA 3">XII MIPA 3</option>
+                        <option value="XII MIPA 4">XII MIPA 4</option>
+                        <option value="XII MIPA 5">XII MIPA 5</option>
+                        <option value="XII IPS 1">XII IPS 1</option>
+                        <option value="XII IPS 2">XII IPS 2</option>
+                        <option value="XII IPS 3">XII IPS 3</option>
+                        <option value="XII BAHASA">XII BAHASA</option>
                     </select>
                 </div>
                 <div class="relative">
@@ -354,15 +372,33 @@
                     <select id="register-class" required 
                             class="w-full px-3 py-2 bg-oldPaper border-2 border-darkBrown rounded-lg focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all duration-300 outline-none font-medieval text-sm text-dark">
                         <option value="">Pilih Kelas</option>
-                        <option value="7A">Kelas 7A</option>
-                        <option value="7B">Kelas 7B</option>
-                        <option value="7C">Kelas 7C</option>
-                        <option value="8A">Kelas 8A</option>
-                        <option value="8B">Kelas 8B</option>
-                        <option value="8C">Kelas 8C</option>
-                        <option value="9A">Kelas 9A</option>
-                        <option value="9B">Kelas 9B</option>
-                        <option value="9C">Kelas 9C</option>
+                        <option value="X1">X1</option>
+                        <option value="X2">X2</option>
+                        <option value="X3">X3</option>
+                        <option value="X4">X4</option>
+                        <option value="X5">X5</option>
+                        <option value="X6">X6</option>
+                        <option value="X7">X7</option>
+                        <option value="X8">X8</option>
+                        <option value="X9">X9</option>
+                        <option value="XI MIPA 1">XI MIPA 1</option>
+                        <option value="XI MIPA 2">XI MIPA 2</option>
+                        <option value="XI MIPA 3">XI MIPA 3</option>
+                        <option value="XI MIPA 4">XI MIPA 4</option>
+                        <option value="XI MIPA 5">XI MIPA 5</option>
+                        <option value="XI IPS 1">XI IPS 1</option>
+                        <option value="XI IPS 2">XI IPS 2</option>
+                        <option value="XI IPS 3">XI IPS 3</option>
+                        <option value="XI IPS 4">XI IPS 4</option>
+                        <option value="XII MIPA 1">XII MIPA 1</option>
+                        <option value="XII MIPA 2">XII MIPA 2</option>
+                        <option value="XII MIPA 3">XII MIPA 3</option>
+                        <option value="XII MIPA 4">XII MIPA 4</option>
+                        <option value="XII MIPA 5">XII MIPA 5</option>
+                        <option value="XII IPS 1">XII IPS 1</option>
+                        <option value="XII IPS 2">XII IPS 2</option>
+                        <option value="XII IPS 3">XII IPS 3</option>
+                        <option value="XII BAHASA">XII BAHASA</option>
                     </select>
                 </div>
                 <div class="relative">
@@ -603,7 +639,7 @@
         class StudentSystem {
             constructor() {
                 this.currentStudent = null;
-                this.students = JSON.parse(localStorage.getItem('perpustakaan_abadi_students')) || [];
+                this.students = JSON.parse(localStorage.getItem('literatreee')) || [];
                 this.selectedProfileIcon = 'book-reader';
                 this.init();
             }
@@ -680,7 +716,7 @@
                 if (!this.currentStudent) return;
 
                 try {
-                    const mainStudents = JSON.parse(localStorage.getItem('perpustakaan_abadi_students') || '[]');
+                    const mainStudents = JSON.parse(localStorage.getItem('literatreee') || '[]');
                     const latestStudentData = mainStudents.find(s => s.id === this.currentStudent.id);
                     
                     if (latestStudentData) {
@@ -1217,7 +1253,7 @@
 
             saveToStorage() {
                 try {
-                    localStorage.setItem('perpustakaan_abadi_students', JSON.stringify(this.students));
+                    localStorage.setItem('literatreee', JSON.stringify(this.students));
                     console.log('✅ Data tersimpan:', this.students);
                 } catch (error) {
                     console.error('Error saving to storage:', error);
