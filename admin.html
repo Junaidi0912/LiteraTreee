@@ -20,19 +20,21 @@
                         bronze: '#CD7F32',
                         mysticBlue: '#1E3A5F',
                         deepRed: '#8B0000',
-                        forestGreen: '#228B22',
-                        lightBrown: '#A0522D',
-                        black: '#000000'
+                        forestGreen: '#228B22'
                     },
                     fontFamily: {
                         'cinzel': ['Cinzel', 'serif'],
                         'medieval': ['MedievalSharp', 'cursive'],
                         'maguntia': ['UnifrakturMaguntia', 'cursive']
                     },
-                    spacing: {
-                        '18': '4.5rem',
-                        '88': '22rem',
-                        '128': '32rem'
+                    fontSize: {
+                        'xs': '0.75rem',
+                        'sm': '0.875rem',
+                        'base': '1rem',
+                        'lg': '1.125rem',
+                        'xl': '1.25rem',
+                        '2xl': '1.5rem',
+                        '3xl': '1.875rem',
                     }
                 }
             }
@@ -41,131 +43,138 @@
     <style>
         body {
             background: linear-gradient(135deg, #2C1810 0%, #1A0F0A 50%, #0F0805 100%);
-            min-height: 100vh;
         }
         
         .parchment-bg {
             background: linear-gradient(135deg, #F5E6CA 0%, #E8D9B5 50%, #DBC9A0 100%);
-            border: 3px double #8B4513;
+            border: 4px double #8B4513;
             box-shadow: 
-                0 4px 20px rgba(139, 69, 19, 0.15),
-                inset 0 0 30px rgba(139, 69, 19, 0.08);
+                0 0 20px rgba(139, 69, 19, 0.3),
+                inset 0 0 30px rgba(139, 69, 19, 0.1);
         }
         
         .ancient-border {
-            border: 2px solid transparent;
-            border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,100 L0,100 Z' fill='none' stroke='%238B4513' stroke-width='4' stroke-dasharray='12,6'/%3E%3C/svg%3E") 20 round;
+            border: 6px solid transparent;
+            border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,100 L0,100 Z' fill='none' stroke='%238B4513' stroke-width='6' stroke-dasharray='15,8'/%3E%3C/svg%3E") 25 round;
         }
         
         .stats-card {
             transition: all 0.3s ease;
             border: 2px solid #8B4513;
-            backdrop-filter: blur(10px);
         }
         
         .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(139, 69, 19, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
         }
         
         .student-row {
-            transition: all 0.2s ease;
-            border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+            transition: all 0.3s ease;
         }
         
         .student-row:hover {
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.08), rgba(139, 69, 19, 0.05));
-            transform: translateX(4px);
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.1), rgba(139, 69, 19, 0.1));
         }
         
         .rank-progress {
             background: linear-gradient(90deg, #D4AF37, #8B4513);
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
         }
 
-        /* Text Colors - FIXED to Black */
-        .text-dark {
-            color: #000000 !important;
-        }
-        
-        .text-darker {
-            color: #1a1a1a !important;
-        }
-
-        /* Mobile First Design */
-        .mobile-container {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        
-        @media (min-width: 768px) {
-            .mobile-container {
-                padding-left: 2rem;
-                padding-right: 2rem;
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .mobile-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .mobile-text-sm {
+                font-size: 0.8rem;
+            }
+            
+            .mobile-text-base {
+                font-size: 0.9rem;
+            }
+            
+            .mobile-text-lg {
+                font-size: 1rem;
+            }
+            
+            .mobile-text-xl {
+                font-size: 1.1rem;
+            }
+            
+            .mobile-text-2xl {
+                font-size: 1.25rem;
+            }
+            
+            .mobile-py-2 {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+            
+            .mobile-py-3 {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+            
+            .mobile-px-3 {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            
+            .mobile-px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
 
-        /* Custom scrollbar */
-        .custom-scrollbar {
+        /* Custom scrollbar untuk mobile */
+        .mobile-scroll {
+            -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
             scrollbar-color: #8B4513 #F5E6CA;
         }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        .mobile-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
+        .mobile-scroll::-webkit-scrollbar-track {
             background: #F5E6CA;
             border-radius: 10px;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
+        .mobile-scroll::-webkit-scrollbar-thumb {
             background: #8B4513;
             border-radius: 10px;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #A0522D;
-        }
-
         /* Search highlight */
         .search-highlight {
-            background-color: rgba(212, 175, 55, 0.4);
-            border-radius: 3px;
-            padding: 0 3px;
-            font-weight: 600;
-            color: #000000 !important;
+            background-color: rgba(212, 175, 55, 0.3);
+            border-radius: 2px;
+            padding: 0 2px;
         }
 
         /* Filter buttons */
         .filter-btn {
             transition: all 0.3s ease;
-            border: 2px solid #8B4513;
-            color: #000000 !important;
-        }
-
-        .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
         }
 
         .filter-btn.active {
             background: linear-gradient(135deg, #D4AF37, #8B4513);
-            color: white !important;
+            color: white;
             border-color: #8B4513;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
 
         /* Online/Offline Status */
         .online-status {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            margin-right: 6px;
-            box-shadow: 0 0 5px currentColor;
+            margin-right: 4px;
         }
         
         .status-online {
@@ -176,482 +185,234 @@
             background-color: #ef4444;
         }
 
-        /* Action buttons */
-        .action-btn {
-            transition: all 0.2s ease;
-            border: 1.5px solid;
-        }
-
-        .action-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Loading animation */
-        @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
-            }
-        }
-
-        .pulse-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        /* Card hover effects */
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card-hover:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.15);
-        }
-
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(135deg, #D4AF37 0%, #8B4513 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Password field */
-        .password-field {
-            font-family: monospace;
-            letter-spacing: 1px;
-        }
-
-        .copy-password {
-            transition: all 0.3s ease;
-        }
-
-        .copy-password:hover {
-            transform: scale(1.1);
-            color: #D4AF37;
-        }
-
-        /* Admin Authentication */
-        .admin-auth-modal {
-            backdrop-filter: blur(10px);
-        }
-
-        /* Export buttons */
-        .export-btn {
-            transition: all 0.3s ease;
-        }
-
-        .export-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        .status-idle {
+            background-color: #f59e0b;
         }
     </style>
 </head>
-<body class="font-cinzel text-black min-h-screen">
-    <!-- Admin Authentication Modal -->
-    <div id="admin-auth-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 admin-auth-modal">
-        <div class="parchment-bg rounded-2xl p-8 max-w-md w-full transform animate-grow ancient-border">
-            <div class="text-center mb-6">
-                <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-gold to-bronze rounded-2xl flex items-center justify-center ancient-border pulse-glow">
-                    <i class="fas fa-user-shield text-darkBrown text-3xl"></i>
-                </div>
-                <h2 class="text-2xl md:text-3xl font-bold text-dark font-maguntia mb-2">Admin Panel</h2>
-                <p class="text-dark font-medieval text-sm">Akses terbatas untuk administrator</p>
-            </div>
-
-            <form id="admin-login-form" class="space-y-6">
-                <div>
-                    <label class="block text-dark font-semibold mb-3 font-medieval text-lg">Username Admin</label>
-                    <input type="text" id="admin-username" required 
-                           class="w-full px-6 py-4 bg-oldPaper border-3 border-darkBrown rounded-2xl focus:border-gold focus:ring-4 focus:ring-gold/20 transition-all duration-300 outline-none font-medieval text-lg text-dark"
-                           placeholder="Masukkan username admin">
-                </div>
-                <div class="relative">
-                    <label class="block text-dark font-semibold mb-3 font-medieval text-lg">Password Admin</label>
-                    <input type="password" id="admin-password" required 
-                           class="w-full px-6 py-4 bg-oldPaper border-3 border-darkBrown rounded-2xl focus:border-gold focus:ring-4 focus:ring-gold/20 transition-all duration-300 outline-none font-medieval text-lg text-dark pr-12"
-                           placeholder="Masukkan password admin">
-                    <div class="absolute right-4 top-11 transform -translate-y-1/2 password-toggle" onclick="togglePassword('admin-password')">
-                        <i class="fas fa-eye text-darkBrown text-xl"></i>
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full bg-gradient-to-r from-gold to-bronze text-darkBrown py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg border-3 border-darkBrown font-medieval">
-                    <i class="fas fa-key mr-3"></i>Masuk sebagai Admin
-                </button>
-            </form>
-
-            <div class="mt-6 p-4 bg-oldPaper rounded-xl border-2 border-darkBrown text-center">
-                <p class="text-dark font-medieval text-sm">
-                    <strong>Default Credentials:</strong><br>
-                    Username: <code class="bg-darkBrown text-parchment px-2 py-1 rounded">admin</code><br>
-                    Password: <code class="bg-darkBrown text-parchment px-2 py-1 rounded">admin123</code>
-                </p>
-            </div>
-        </div>
-    </div>
-
+<body class="font-cinzel text-oldPaper min-h-screen">
     <!-- Navigation -->
-    <nav id="admin-nav" class="hidden bg-darkBrown/95 backdrop-blur-md shadow-2xl border-b-2 border-gold sticky top-0 z-50">
-        <div class="mobile-container">
-            <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0 py-4">
-                <!-- Logo & Title -->
-                <div class="flex items-center space-x-4 justify-center lg:justify-start">
-                    <div class="w-12 h-12 bg-gradient-to-r from-gold to-bronze rounded-2xl flex items-center justify-center ancient-border pulse-glow">
-                        <i class="fas fa-user-shield text-darkBrown text-xl"></i>
+    <nav class="bg-darkBrown/90 shadow-2xl border-b-2 border-gold sticky top-0 z-40">
+        <div class="container mx-auto mobile-padding py-3">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
+                <div class="flex items-center space-x-3 justify-center sm:justify-start">
+                    <div class="w-10 h-10 bg-gradient-to-r from-gold to-bronze rounded-full flex items-center justify-center ancient-border">
+                        <i class="fas fa-user-shield text-darkBrown mobile-text-lg"></i>
                     </div>
-                    <div class="text-center lg:text-left">
-                        <h1 class="text-2xl lg:text-3xl font-bold text-gold font-maguntia">Perpustakaan Abadi</h1>
-                        <p class="text-silver text-sm lg:text-base font-medieval mt-1">Panel Administrator</p>
+                    <div class="text-center sm:text-left">
+                        <h1 class="mobile-text-2xl font-bold text-gold font-maguntia">Perpustakaan Abadi</h1>
+                        <p class="text-silver mobile-text-sm font-medieval">Panel Administrator</p>
                     </div>
                 </div>
-                
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-end">
-                    <button onclick="adminSystem.exportAllData()" class="bg-forestGreen hover:bg-green-800 text-parchment px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-gold font-medieval text-sm lg:text-base flex items-center justify-center shadow-lg export-btn">
-                        <i class="fas fa-download mr-3"></i>Ekspor Data
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 sm:items-center">
+                    <button onclick="refreshData()" class="bg-gold hover:bg-yellow-600 text-darkBrown mobile-px-4 mobile-py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-darkBrown font-medieval mobile-text-sm flex items-center justify-center">
+                        <i class="fas fa-sync-alt mr-2"></i>Perbarui
                     </button>
-                    <button onclick="adminSystem.showBackupModal()" class="bg-mysticBlue hover:bg-blue-800 text-parchment px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-gold font-medieval text-sm lg:text-base flex items-center justify-center shadow-lg">
-                        <i class="fas fa-database mr-3"></i>Backup
-                    </button>
-                    <button onclick="adminSystem.refreshData()" class="bg-gold hover:bg-yellow-600 text-darkBrown px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-darkBrown font-medieval text-sm lg:text-base flex items-center justify-center shadow-lg">
-                        <i class="fas fa-sync-alt mr-3"></i>Perbarui Data
-                    </button>
-                    <a href="siswa.html" class="bg-deepRed hover:bg-red-800 text-parchment px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-gold font-medieval text-sm lg:text-base flex items-center justify-center shadow-lg">
-                        <i class="fas fa-eye mr-3"></i>Lihat Siswa
+                    <a href="siswa.html" class="bg-forestGreen hover:bg-green-800 text-parchment mobile-px-4 mobile-py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-gold font-medieval mobile-text-sm flex items-center justify-center">
+                        <i class="fas fa-eye mr-2"></i>Lihat Siswa
                     </a>
-                    <button onclick="adminSystem.logout()" class="bg-darkBrown hover:bg-black text-parchment px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-gold font-medieval text-sm lg:text-base flex items-center justify-center shadow-lg">
-                        <i class="fas fa-sign-out-alt mr-3"></i>Logout
-                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main id="admin-main" class="hidden py-6 lg:py-8">
-        <div class="mobile-container max-w-7xl mx-auto">
+    <main class="py-4 mobile-padding">
+        <div class="container mx-auto">
             <!-- Statistics Overview -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-                <div class="stats-card parchment-bg rounded-2xl p-6 card-hover">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <div class="stats-card parchment-bg rounded-xl p-4">
                     <div class="flex items-center justify-between">
-                        <div class="space-y-2">
-                            <div class="text-3xl lg:text-4xl font-bold text-dark" id="total-students">0</div>
-                            <div class="text-dark font-medieval text-lg">Total Petualang</div>
+                        <div>
+                            <div class="mobile-text-xl font-bold text-darkBrown" id="total-students">0</div>
+                            <div class="text-darkBrown font-medieval mobile-text-sm">Total Petualang</div>
                         </div>
-                        <div class="w-14 h-14 bg-gold/20 rounded-2xl flex items-center justify-center ancient-border">
-                            <i class="fas fa-users text-gold text-2xl"></i>
+                        <div class="w-8 h-8 bg-gold/20 rounded-full flex items-center justify-center ancient-border">
+                            <i class="fas fa-users text-gold"></i>
                         </div>
-                    </div>
-                    <div class="mt-4 w-full bg-oldPaper rounded-full h-2">
-                        <div class="bg-gradient-to-r from-gold to-bronze h-2 rounded-full transition-all duration-1000" style="width: 100%"></div>
                     </div>
                 </div>
 
-                <div class="stats-card parchment-bg rounded-2xl p-6 card-hover">
+                <div class="stats-card parchment-bg rounded-xl p-4">
                     <div class="flex items-center justify-between">
-                        <div class="space-y-2">
-                            <div class="text-3xl lg:text-4xl font-bold text-dark" id="online-students">0</div>
-                            <div class="text-dark font-medieval text-lg">Sedang Online</div>
+                        <div>
+                            <div class="mobile-text-xl font-bold text-darkBrown" id="online-students">0</div>
+                            <div class="text-darkBrown font-medieval mobile-text-sm">Online</div>
                         </div>
-                        <div class="w-14 h-14 bg-forestGreen/20 rounded-2xl flex items-center justify-center ancient-border">
-                            <i class="fas fa-wifi text-forestGreen text-2xl"></i>
+                        <div class="w-8 h-8 bg-forestGreen/20 rounded-full flex items-center justify-center ancient-border">
+                            <i class="fas fa-wifi text-forestGreen"></i>
                         </div>
-                    </div>
-                    <div class="mt-4 w-full bg-oldPaper rounded-full h-2">
-                        <div class="bg-gradient-to-r from-forestGreen to-green-600 h-2 rounded-full transition-all duration-1000" id="online-progress" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <div class="stats-card parchment-bg rounded-2xl p-6 card-hover">
+                <div class="stats-card parchment-bg rounded-xl p-4">
                     <div class="flex items-center justify-between">
-                        <div class="space-y-2">
-                            <div class="text-3xl lg:text-4xl font-bold text-dark" id="total-points">0</div>
-                            <div class="text-dark font-medieval text-lg">Total XP</div>
+                        <div>
+                            <div class="mobile-text-xl font-bold text-darkBrown" id="total-points">0</div>
+                            <div class="text-darkBrown font-medieval mobile-text-sm">Total XP</div>
                         </div>
-                        <div class="w-14 h-14 bg-gold/20 rounded-2xl flex items-center justify-center ancient-border">
-                            <i class="fas fa-star text-gold text-2xl"></i>
+                        <div class="w-8 h-8 bg-gold/20 rounded-full flex items-center justify-center ancient-border">
+                            <i class="fas fa-star text-gold"></i>
                         </div>
-                    </div>
-                    <div class="mt-4 text-sm text-dark font-medieval">
-                        ⭐ Rata-rata: <span id="avg-points-display">0</span> XP
                     </div>
                 </div>
 
-                <div class="stats-card parchment-bg rounded-2xl p-6 card-hover">
+                <div class="stats-card parchment-bg rounded-xl p-4">
                     <div class="flex items-center justify-between">
-                        <div class="space-y-2">
-                            <div class="text-3xl lg:text-4xl font-bold text-dark" id="avg-points">0</div>
-                            <div class="text-dark font-medieval text-lg">Rata-rata XP</div>
+                        <div>
+                            <div class="mobile-text-xl font-bold text-darkBrown" id="avg-points">0</div>
+                            <div class="text-darkBrown font-medieval mobile-text-sm">Rata-rata XP</div>
                         </div>
-                        <div class="w-14 h-14 bg-bronze/20 rounded-2xl flex items-center justify-center ancient-border">
-                            <i class="fas fa-chart-line text-bronze text-2xl"></i>
+                        <div class="w-8 h-8 bg-bronze/20 rounded-full flex items-center justify-center ancient-border">
+                            <i class="fas fa-chart-line text-bronze"></i>
                         </div>
-                    </div>
-                    <div class="mt-4 text-sm text-dark font-medieval">
-                        📈 Progress sistem
                     </div>
                 </div>
             </div>
 
             <!-- Search and Filter Section -->
-            <div class="parchment-bg rounded-2xl p-6 lg:p-8 ancient-border mb-8">
-                <!-- Search Bar -->
-                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0 mb-6">
+            <div class="parchment-bg rounded-xl p-4 ancient-border mb-4">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0">
                     <div class="flex-1">
                         <div class="relative">
                             <input 
                                 type="text" 
                                 id="search-input"
-                                placeholder="Cari nama petualang atau kelas..."
-                                class="w-full px-6 py-4 bg-oldPaper border-3 border-darkBrown rounded-2xl focus:border-gold focus:ring-4 focus:ring-gold/20 transition-all duration-300 outline-none font-medieval text-lg placeholder-black/60 shadow-inner text-dark"
+                                placeholder="Cari nama petualang..."
+                                class="w-full mobile-px-4 mobile-py-2 bg-oldPaper border-2 border-darkBrown rounded-lg focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all duration-300 outline-none font-medieval mobile-text-sm pr-10"
                             >
-                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-darkBrown text-xl">
+                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-darkBrown">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="flex space-x-3">
-                        <button onclick="adminSystem.clearSearch()" class="bg-silver hover:bg-gray-500 text-darkBrown px-6 py-4 rounded-2xl font-semibold transition-all duration-300 border-3 border-darkBrown font-medieval text-base flex items-center justify-center action-btn">
-                            <i class="fas fa-times mr-2"></i>Clear
+                    <div class="flex space-x-2">
+                        <button onclick="adminSystem.clearSearch()" class="bg-silver hover:bg-gray-500 text-darkBrown mobile-px-3 mobile-py-2 rounded-lg font-semibold transition-all duration-300 border-2 border-darkBrown font-medieval mobile-text-sm">
+                            <i class="fas fa-times mr-1"></i>Clear
                         </button>
-                        <button onclick="adminSystem.toggleSort()" class="bg-mysticBlue hover:bg-blue-800 text-parchment px-6 py-4 rounded-2xl font-semibold transition-all duration-300 border-3 border-gold font-medieval text-base flex items-center justify-center action-btn">
-                            <i class="fas fa-sort-amount-down mr-2" id="sort-icon"></i>
+                        <button onclick="adminSystem.toggleSort()" class="bg-mysticBlue hover:bg-blue-800 text-parchment mobile-px-3 mobile-py-2 rounded-lg font-semibold transition-all duration-300 border-2 border-gold font-medieval mobile-text-sm">
+                            <i class="fas fa-sort-amount-down mr-1" id="sort-icon"></i>
                             <span id="sort-text">XP Tertinggi</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Filter by Class -->
-                <div class="mb-6">
-                    <h3 class="text-dark font-semibold font-medieval text-lg mb-4">Filter Kelas:</h3>
-                    <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-                        <button onclick="adminSystem.filterByClass('')" class="filter-btn active bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            Semua
+                <div class="mt-3">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="adminSystem.filterByClass('')" class="filter-btn active bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Semua Kelas
                         </button>
-                        <button onclick="adminSystem.filterByClass('X1')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X1
+                        <button onclick="adminSystem.filterByClass('7A')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 7A
                         </button>
-                        <button onclick="adminSystem.filterByClass('X2')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X2
+                        <button onclick="adminSystem.filterByClass('7B')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 7B
                         </button>
-                        <button onclick="adminSystem.filterByClass('X3')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X3
+                        <button onclick="adminSystem.filterByClass('7C')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 7C
                         </button>
-                        <button onclick="adminSystem.filterByClass('X4')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X4
+                        <button onclick="adminSystem.filterByClass('8A')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 8A
                         </button>
-                        <button onclick="adminSystem.filterByClass('X5')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X5
+                        <button onclick="adminSystem.filterByClass('8B')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 8B
                         </button>
-                        <button onclick="adminSystem.filterByClass('X6')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X6
+                        <button onclick="adminSystem.filterByClass('8C')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 8C
                         </button>
-                        <button onclick="adminSystem.filterByClass('X7')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X7
+                        <button onclick="adminSystem.filterByClass('9A')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 9A
                         </button>
-                        <button onclick="adminSystem.filterByClass('X8')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X8
+                        <button onclick="adminSystem.filterByClass('9B')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 9B
                         </button>
-                        <button onclick="adminSystem.filterByClass('X9')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            X9
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI MIPA 1')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI MIPA 1
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI MIPA 2')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI MIPA 2
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI MIPA 3')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI MIPA 3
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI MIPA 4')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI MIPA 4
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI MIPA 5')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI MIPA 5
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI IPS 1')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI IPS 1
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI IPS 2')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI IPS 2
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI IPS 3')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI IPS 3
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XI IPS 4')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XI IPS 4
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII MIPA 1')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII MIPA 1
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII MIPA 2')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII MIPA 2
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII MIPA 3')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII MIPA 3
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII MIPA 4')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII MIPA 4
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII MIPA 5')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII MIPA 5
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII IPS 1')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII IPS 1
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII IPS 2')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII IPS 2
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII IPS 3')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII IPS 3
-                        </button>
-                        <button onclick="adminSystem.filterByClass('XII BAHASA')" class="filter-btn bg-gold/20 py-3 rounded-xl text-sm font-semibold font-medieval">
-                            XII BAHASA
+                        <button onclick="adminSystem.filterByClass('9C')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
+                            Kelas 9C
                         </button>
                     </div>
                 </div>
 
                 <!-- Status Filter -->
-                <div class="mb-4">
-                    <h3 class="text-dark font-semibold font-medieval text-lg mb-4">Filter Status:</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="adminSystem.filterByStatus('all')" class="filter-btn active bg-gold/20 px-6 py-3 rounded-xl text-base font-semibold font-medieval">
+                <div class="mt-3">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="adminSystem.filterByStatus('all')" class="filter-btn active bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
                             Semua Status
                         </button>
-                        <button onclick="adminSystem.filterByStatus('online')" class="filter-btn bg-gold/20 px-6 py-3 rounded-xl text-base font-semibold font-medieval">
+                        <button onclick="adminSystem.filterByStatus('online')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
                             <span class="online-status status-online"></span>Online
                         </button>
-                        <button onclick="adminSystem.filterByStatus('offline')" class="filter-btn bg-gold/20 px-6 py-3 rounded-xl text-base font-semibold font-medieval">
+                        <button onclick="adminSystem.filterByStatus('offline')" class="filter-btn bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown font-medieval">
                             <span class="online-status status-offline"></span>Offline
                         </button>
                     </div>
                 </div>
 
                 <!-- Search Results Info -->
-                <div id="search-info" class="mt-4 p-4 bg-oldPaper rounded-xl border-2 border-darkBrown text-dark font-medieval text-base hidden">
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-info-circle text-gold"></i>
-                        <span>Menampilkan <span class="font-bold text-dark" id="result-count">0</span> dari <span class="font-bold text-dark" id="total-count">0</span> petualang</span>
-                        <span id="search-term-display" class="font-semibold text-gold"></span>
-                    </div>
+                <div id="search-info" class="mt-2 text-darkBrown font-medieval mobile-text-sm hidden">
+                    Menampilkan <span id="result-count">0</span> dari <span id="total-count">0</span> petualang
+                    <span id="search-term-display" class="font-semibold"></span>
                 </div>
             </div>
 
-            <!-- Students List Section -->
-            <div class="parchment-bg rounded-2xl overflow-hidden ancient-border mb-8">
-                <!-- Header -->
-                <div class="px-6 lg:px-8 py-6 border-b-2 border-darkBrown bg-gradient-to-r from-oldPaper to-parchment">
-                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0">
-                        <div>
-                            <h3 class="text-2xl lg:text-3xl font-bold text-dark font-maguntia mb-2">Daftar Petualang</h3>
-                            <p class="text-dark font-medieval text-lg">Kelola XP dan pantau progress literasi</p>
-                        </div>
-                        <div id="student-count" class="bg-gold/30 text-darkBrown px-6 py-3 rounded-xl text-base font-semibold border-2 border-darkBrown font-medieval">
-                            <i class="fas fa-users mr-2"></i>
-                            <span>0 petualang</span>
-                        </div>
+            <!-- Students List -->
+            <div class="parchment-bg rounded-xl overflow-hidden ancient-border mb-6">
+                <div class="mobile-px-4 mobile-py-3 border-b-2 border-darkBrown flex justify-between items-center">
+                    <div>
+                        <h3 class="mobile-text-xl font-bold text-darkBrown font-maguntia">Daftar Petualang</h3>
+                        <p class="text-darkBrown font-medieval mobile-text-sm">Kelola XP dan pantau progress</p>
+                    </div>
+                    <div id="student-count" class="bg-gold/20 text-darkBrown mobile-px-3 mobile-py-1 rounded-full text-xs font-semibold border border-darkBrown">
+                        0 petualang
                     </div>
                 </div>
 
-                <!-- Table Container -->
-                <div class="overflow-x-auto custom-scrollbar">
-                    <table class="w-full min-w-[1000px] lg:min-w-full">
+                <div class="overflow-x-auto mobile-scroll">
+                    <table class="w-full min-w-[600px]">
                         <thead>
-                            <tr class="bg-gradient-to-r from-oldPaper to-parchment">
-                                <th class="px-6 py-5 text-left font-bold text-dark font-medieval text-lg border-b-2 border-darkBrown">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-user text-gold"></i>
-                                        <span>Nama Petualang</span>
-                                    </div>
-                                </th>
-                                <th class="px-6 py-5 text-left font-bold text-dark font-medieval text-lg border-b-2 border-darkBrown">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-graduation-cap text-gold"></i>
-                                        <span>Kelas</span>
-                                    </div>
-                                </th>
-                                <th class="px-6 py-5 text-left font-bold text-dark font-medieval text-lg border-b-2 border-darkBrown">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-key text-gold"></i>
-                                        <span>Password</span>
-                                    </div>
-                                </th>
-                                <th class="px-6 py-5 text-left font-bold text-dark font-medieval text-lg border-b-2 border-darkBrown">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-star text-gold"></i>
-                                        <span>XP</span>
-                                    </div>
-                                </th>
-                                <th class="px-6 py-5 text-left font-bold text-dark font-medieval text-lg border-b-2 border-darkBrown">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-trophy text-gold"></i>
-                                        <span>Rank</span>
-                                    </div>
-                                </th>
-                                <th class="px-6 py-5 text-left font-bold text-dark font-medieval text-lg border-b-2 border-darkBrown">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-signal text-gold"></i>
-                                        <span>Status</span>
-                                    </div>
-                                </th>
-                                <th class="px-6 py-5 text-left font-bold text-dark font-medieval text-lg border-b-2 border-darkBrown">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="fas fa-cogs text-gold"></i>
-                                        <span>Aksi</span>
-                                    </div>
-                                </th>
+                            <tr class="bg-oldPaper">
+                                <th class="mobile-px-3 mobile-py-3 text-left font-semibold text-darkBrown font-medieval mobile-text-sm">Nama</th>
+                                <th class="mobile-px-3 mobile-py-3 text-left font-semibold text-darkBrown font-medieval mobile-text-sm">Kelas</th>
+                                <th class="mobile-px-3 mobile-py-3 text-left font-semibold text-darkBrown font-medieval mobile-text-sm">XP</th>
+                                <th class="mobile-px-3 mobile-py-3 text-left font-semibold text-darkBrown font-medieval mobile-text-sm">Rank</th>
+                                <th class="mobile-px-3 mobile-py-3 text-left font-semibold text-darkBrown font-medieval mobile-text-sm">Status</th>
+                                <th class="mobile-px-3 mobile-py-3 text-left font-semibold text-darkBrown font-medieval mobile-text-sm">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="students-table-body" class="table-responsive">
+                        <tbody id="students-table-body">
                             <!-- Data siswa akan diisi di sini -->
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Empty States -->
-                <div class="mobile-text-center mobile-full-width">
-                    <div class="mobile-px-4 mobile-py-16 border-t-2 border-darkBrown text-center text-dark font-medieval" id="empty-state">
-                        <i class="fas fa-scroll text-6xl mb-6 opacity-40"></i>
-                        <p class="text-2xl mb-3">Belum ada petualang</p>
-                        <p class="text-lg opacity-80">Arahkan siswa untuk login ke sistem</p>
-                    </div>
+                <div class="mobile-px-4 mobile-py-6 border-t-2 border-darkBrown text-center text-darkBrown font-medieval" id="empty-state">
+                    <i class="fas fa-scroll text-4xl mb-3 opacity-50"></i>
+                    <p class="mobile-text-lg">Belum ada petualang</p>
+                    <p class="mobile-text-sm mt-1">Arahkan siswa untuk login</p>
+                </div>
 
-                    <div class="mobile-px-4 mobile-py-16 border-t-2 border-darkBrown text-center text-dark font-medieval hidden" id="no-results-state">
-                        <i class="fas fa-search text-6xl mb-6 opacity-40"></i>
-                        <p class="text-2xl mb-3">Tidak ditemukan</p>
-                        <p class="text-lg opacity-80">Coba dengan kata kunci atau filter lain</p>
-                    </div>
+                <div class="mobile-px-4 mobile-py-6 border-t-2 border-darkBrown text-center text-darkBrown font-medieval hidden" id="no-results-state">
+                    <i class="fas fa-search text-4xl mb-3 opacity-50"></i>
+                    <p class="mobile-text-lg">Tidak ditemukan</p>
+                    <p class="mobile-text-sm mt-1">Coba dengan kata kunci lain</p>
                 </div>
             </div>
 
-            <!-- Quick Actions Section -->
-            <div class="parchment-bg rounded-2xl p-6 lg:p-8 ancient-border">
-                <h3 class="text-2xl lg:text-3xl font-bold text-dark font-maguntia mb-6">Aksi Cepat Tambah XP</h3>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                    <button onclick="adminSystem.showBulkAddModal(5)" class="parchment-bg hover:bg-gold/30 text-dark py-6 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 border-3 border-darkBrown font-medieval text-lg flex flex-col items-center justify-center action-btn shadow-lg">
-                        <i class="fas fa-plus-circle text-3xl mb-3 text-gold"></i>
-                        <span>+5 XP</span>
-                        <span class="text-sm opacity-70 mt-1">Tambah Sedikit</span>
+            <!-- Quick Actions -->
+            <div class="parchment-bg rounded-xl p-4 ancient-border">
+                <h3 class="mobile-text-xl font-bold text-darkBrown font-maguntia mb-3">Tambah XP Cepat</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="showBulkAddModal(5)" class="parchment-bg hover:bg-gold/20 text-darkBrown mobile-py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-darkBrown font-medieval mobile-text-sm flex items-center justify-center">
+                        <i class="fas fa-plus mr-2"></i>+5 XP
                     </button>
-                    <button onclick="adminSystem.showBulkAddModal(15)" class="parchment-bg hover:bg-gold/30 text-dark py-6 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 border-3 border-darkBrown font-medieval text-lg flex flex-col items-center justify-center action-btn shadow-lg">
-                        <i class="fas fa-plus-circle text-3xl mb-3 text-bronze"></i>
-                        <span>+15 XP</span>
-                        <span class="text-sm opacity-70 mt-1">Tambah Medium</span>
+                    <button onclick="showBulkAddModal(15)" class="parchment-bg hover:bg-gold/20 text-darkBrown mobile-py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-darkBrown font-medieval mobile-text-sm flex items-center justify-center">
+                        <i class="fas fa-plus mr-2"></i>+15 XP
                     </button>
-                    <button onclick="adminSystem.showBulkAddModal(20)" class="parchment-bg hover:bg-gold/30 text-dark py-6 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 border-3 border-darkBrown font-medieval text-lg flex flex-col items-center justify-center action-btn shadow-lg">
-                        <i class="fas fa-plus-circle text-3xl mb-3 text-gold"></i>
-                        <span>+20 XP</span>
-                        <span class="text-sm opacity-70 mt-1">Tambah Banyak</span>
+                    <button onclick="showBulkAddModal(20)" class="parchment-bg hover:bg-gold/20 text-darkBrown mobile-py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-darkBrown font-medieval mobile-text-sm flex items-center justify-center">
+                        <i class="fas fa-plus mr-2"></i>+20 XP
                     </button>
-                    <button onclick="adminSystem.showBulkAddModal(30)" class="parchment-bg hover:bg-gold/30 text-dark py-6 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 border-3 border-darkBrown font-medieval text-lg flex flex-col items-center justify-center action-btn shadow-lg">
-                        <i class="fas fa-plus-circle text-3xl mb-3 text-bronze"></i>
-                        <span>+30 XP</span>
-                        <span class="text-sm opacity-70 mt-1">Tambah Maximum</span>
+                    <button onclick="showBulkAddModal(30)" class="parchment-bg hover:bg-gold/20 text-darkBrown mobile-py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-darkBrown font-medieval mobile-text-sm flex items-center justify-center">
+                        <i class="fas fa-plus mr-2"></i>+30 XP
                     </button>
                 </div>
             </div>
@@ -659,27 +420,22 @@
     </main>
 
     <!-- Add Points Modal -->
-    <div id="add-points-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center mobile-container backdrop-blur-sm">
-        <div class="parchment-bg rounded-2xl p-8 w-full max-w-md ancient-border transform animate-grow">
-            <div class="text-center mb-6">
-                <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-gold to-bronze rounded-2xl flex items-center justify-center ancient-border">
-                    <i class="fas fa-plus text-darkBrown text-3xl"></i>
-                </div>
-                <h4 class="text-2xl font-bold text-dark font-maguntia">Tambah XP</h4>
-            </div>
-            <div class="space-y-6">
+    <div id="add-points-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center mobile-padding backdrop-blur-sm">
+        <div class="parchment-bg rounded-xl p-5 w-full max-w-sm ancient-border">
+            <h4 class="mobile-text-xl font-bold text-darkBrown font-maguntia mb-3">Tambah XP</h4>
+            <div class="space-y-4">
                 <div>
-                    <label class="block text-dark font-semibold mb-3 font-medieval text-lg">Jumlah XP</label>
+                    <label class="block text-darkBrown font-semibold mb-2 font-medieval mobile-text-sm">Jumlah XP</label>
                     <input type="number" id="points-amount" 
-                           class="w-full px-6 py-4 bg-oldPaper border-3 border-darkBrown rounded-2xl focus:border-gold focus:ring-4 focus:ring-gold/20 transition-all duration-300 outline-none font-medieval text-lg text-center text-dark"
+                           class="w-full mobile-px-3 mobile-py-2 bg-oldPaper border-2 border-darkBrown rounded-lg focus:border-gold focus:ring-2 focus:ring-gold/30 transition-all duration-300 outline-none font-medieval mobile-text-sm"
                            min="1" max="100" value="5">
                 </div>
-                <div class="flex space-x-4">
-                    <button onclick="adminSystem.addPointsToStudent()" class="flex-1 bg-gold hover:bg-yellow-600 text-darkBrown py-4 rounded-2xl font-semibold transition-all duration-300 border-3 border-darkBrown font-medieval text-lg shadow-lg hover:scale-105">
-                        <i class="fas fa-check mr-2"></i>Tambah XP
+                <div class="flex space-x-2">
+                    <button onclick="addPointsToStudent()" class="flex-1 bg-gold hover:bg-yellow-600 text-darkBrown mobile-py-2 rounded-lg font-semibold transition-all duration-300 border-2 border-darkBrown font-medieval mobile-text-sm">
+                        Tambah XP
                     </button>
-                    <button onclick="adminSystem.closeAddPointsModal()" class="flex-1 bg-deepRed hover:bg-red-800 text-parchment py-4 rounded-2xl font-semibold transition-all duration-300 border-3 border-gold font-medieval text-lg shadow-lg hover:scale-105">
-                        <i class="fas fa-times mr-2"></i>Batal
+                    <button onclick="closeAddPointsModal()" class="flex-1 bg-deepRed hover:bg-red-800 text-parchment mobile-py-2 rounded-lg font-semibold transition-all duration-300 border-2 border-gold font-medieval mobile-text-sm">
+                        Batal
                     </button>
                 </div>
             </div>
@@ -687,56 +443,23 @@
     </div>
 
     <!-- Bulk Add Modal -->
-    <div id="bulk-add-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center mobile-container backdrop-blur-sm">
-        <div class="parchment-bg rounded-2xl p-8 w-full max-w-md ancient-border transform animate-grow">
-            <div class="text-center mb-6">
-                <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-gold to-bronze rounded-2xl flex items-center justify-center ancient-border">
-                    <i class="fas fa-users text-darkBrown text-3xl"></i>
+    <div id="bulk-add-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center mobile-padding backdrop-blur-sm">
+        <div class="parchment-bg rounded-xl p-5 w-full max-w-sm ancient-border">
+            <h4 class="mobile-text-xl font-bold text-darkBrown font-maguntia mb-3">Tambah XP ke Semua</h4>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-darkBrown font-semibold mb-2 font-medieval mobile-text-sm">Jumlah XP</label>
+                    <div class="mobile-text-2xl font-bold text-gold text-center" id="bulk-points-amount">5</div>
                 </div>
-                <h4 class="text-2xl font-bold text-dark font-maguntia">Tambah XP Massal</h4>
-            </div>
-            <div class="space-y-6">
-                <div class="text-center">
-                    <label class="block text-dark font-semibold mb-3 font-medieval text-lg">Jumlah XP</label>
-                    <div class="text-4xl font-bold text-gold gradient-text" id="bulk-points-amount">5</div>
-                </div>
-                <div class="text-center text-dark font-medieval text-lg bg-oldPaper p-4 rounded-xl border-2 border-darkBrown">
-                    <i class="fas fa-info-circle text-gold mr-2"></i>
+                <div class="text-center text-darkBrown font-medieval mobile-text-sm">
                     XP akan ditambahkan ke semua petualang aktif
                 </div>
-                <div class="flex space-x-4">
-                    <button onclick="adminSystem.addPointsToAllStudents()" class="flex-1 bg-gold hover:bg-yellow-600 text-darkBrown py-4 rounded-2xl font-semibold transition-all duration-300 border-3 border-darkBrown font-medieval text-lg shadow-lg hover:scale-105">
-                        <i class="fas fa-bolt mr-2"></i>Tambah Semua
+                <div class="flex space-x-2">
+                    <button onclick="addPointsToAllStudents()" class="flex-1 bg-gold hover:bg-yellow-600 text-darkBrown mobile-py-2 rounded-lg font-semibold transition-all duration-300 border-2 border-darkBrown font-medieval mobile-text-sm">
+                        Tambah Semua
                     </button>
-                    <button onclick="adminSystem.closeBulkAddModal()" class="flex-1 bg-deepRed hover:bg-red-800 text-parchment py-4 rounded-2xl font-semibold transition-all duration-300 border-3 border-gold font-medieval text-lg shadow-lg hover:scale-105">
-                        <i class="fas fa-times mr-2"></i>Batal
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Backup Modal -->
-    <div id="backup-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center mobile-container backdrop-blur-sm">
-        <div class="parchment-bg rounded-2xl p-8 w-full max-w-2xl ancient-border transform animate-grow">
-            <div class="text-center mb-6">
-                <h4 class="text-2xl font-bold text-dark font-maguntia">Manajemen Backup</h4>
-                <p class="text-dark font-medieval">Cadangkan dan pulihkan data sistem</p>
-            </div>
-            <div class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <button onclick="adminSystem.createBackup()" class="parchment-bg hover:bg-gold/30 text-dark py-6 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 border-3 border-darkBrown font-medieval text-lg flex flex-col items-center justify-center action-btn">
-                        <i class="fas fa-save text-3xl mb-3 text-gold"></i>
-                        <span>Buat Backup</span>
-                    </button>
-                    <button onclick="adminSystem.exportBackup()" class="parchment-bg hover:bg-gold/30 text-dark py-6 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 border-3 border-darkBrown font-medieval text-lg flex flex-col items-center justify-center action-btn">
-                        <i class="fas fa-download text-3xl mb-3 text-bronze"></i>
-                        <span>Ekspor Backup</span>
-                    </button>
-                </div>
-                <div class="text-center">
-                    <button onclick="adminSystem.closeBackupModal()" class="bg-deepRed hover:bg-red-800 text-parchment px-6 py-3 rounded-2xl font-semibold transition-all duration-300 border-3 border-gold font-medieval">
-                        Tutup
+                    <button onclick="closeBulkAddModal()" class="flex-1 bg-deepRed hover:bg-red-800 text-parchment mobile-py-2 rounded-lg font-semibold transition-all duration-300 border-2 border-gold font-medieval mobile-text-sm">
+                        Batal
                     </button>
                 </div>
             </div>
@@ -744,7 +467,6 @@
     </div>
 
     <script>
-        // FIXED: Enhanced Admin System with PROPER SYNC
         class AdminSystem {
             constructor() {
                 this.students = [];
@@ -755,148 +477,71 @@
                 this.selectedClass = '';
                 this.selectedStatus = 'all';
                 this.sortDescending = true;
-                this.isAuthenticated = false;
-                this.adminCredentials = {
-                    username: 'admin',
-                    password: 'admin123'
-                };
                 this.init();
             }
 
             init() {
+                this.loadStudents();
                 this.setupEventListeners();
-                this.checkAdminSession();
+                this.startAutoRefresh();
+            }
+
+            loadStudents() {
+                // FIXED: Gunakan SATU sumber data utama
+                const studentData = JSON.parse(localStorage.getItem('perpustakaan_abadi_students') || '[]');
+                
+                // Update status online/offline berdasarkan lastActivity
+                const updatedStudents = studentData.map(student => {
+                    const lastActivity = new Date(student.lastActivity || student.lastLogin);
+                    const now = new Date();
+                    const minutesSinceLastActivity = (now - lastActivity) / (1000 * 60);
+                    
+                    // Jika lebih dari 5 menit tidak aktif, anggap offline
+                    student.isOnline = minutesSinceLastActivity < 5;
+                    
+                    return student;
+                });
+
+                this.students = updatedStudents;
+                this.applyFilters();
             }
 
             setupEventListeners() {
-                // Admin login form
-                document.getElementById('admin-login-form').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleAdminLogin();
-                });
-
-                // Search input
+                // Search input event
                 document.getElementById('search-input').addEventListener('input', (e) => {
                     this.searchTerm = e.target.value.toLowerCase().trim();
                     this.applyFilters();
                 });
 
-                // Auto-refresh data every 2 seconds for real-time sync
+                // Auto-refresh setiap 3 detik untuk data real-time
                 setInterval(() => {
-                    if (this.isAuthenticated) {
-                        this.loadStudents();
-                    }
-                }, 2000);
-            }
-
-            checkAdminSession() {
-                const adminSession = localStorage.getItem('admin_session');
-                if (adminSession) {
-                    try {
-                        const session = JSON.parse(adminSession);
-                        if (session.expires > Date.now()) {
-                            this.isAuthenticated = true;
-                            this.showAdminInterface();
-                            this.loadStudents();
-                        } else {
-                            localStorage.removeItem('admin_session');
-                        }
-                    } catch (error) {
-                        localStorage.removeItem('admin_session');
-                    }
-                }
-            }
-
-            handleAdminLogin() {
-                const username = document.getElementById('admin-username').value.trim();
-                const password = document.getElementById('admin-password').value;
-
-                if (username === this.adminCredentials.username && 
-                    password === this.adminCredentials.password) {
-                    
-                    // Create admin session (expires in 24 hours)
-                    const session = {
-                        username: username,
-                        loginTime: new Date().toISOString(),
-                        expires: Date.now() + (24 * 60 * 60 * 1000)
-                    };
-                    
-                    localStorage.setItem('admin_session', JSON.stringify(session));
-                    this.isAuthenticated = true;
-                    this.showAdminInterface();
                     this.loadStudents();
-                    this.showNotification('Berhasil login sebagai admin!', 'success');
-                    
-                } else {
-                    this.showNotification('Username atau password admin salah!', 'error');
-                }
+                }, 3000);
             }
 
-            logout() {
-                localStorage.removeItem('admin_session');
-                this.isAuthenticated = false;
-                this.showAuthInterface();
-                this.showNotification('Berhasil logout dari admin panel', 'info');
-            }
-
-            showAuthInterface() {
-                document.getElementById('admin-auth-modal').classList.remove('hidden');
-                document.getElementById('admin-nav').classList.add('hidden');
-                document.getElementById('admin-main').classList.add('hidden');
-            }
-
-            showAdminInterface() {
-                document.getElementById('admin-auth-modal').classList.add('hidden');
-                document.getElementById('admin-nav').classList.remove('hidden');
-                document.getElementById('admin-main').classList.remove('hidden');
-            }
-
-            // FIXED: Enhanced data loading with PROPER SYNC
-            loadStudents() {
-                try {
-                    const studentData = JSON.parse(localStorage.getItem('literatreee') || '[]');
-                    console.log('🔄 Admin: Loading students data:', studentData);
-                    
-                    // Use the same online status calculation as student system
-                    const updatedStudents = studentData.map(student => {
-                        // Check if student has current session (same logic as student system)
-                        const currentStudent = JSON.parse(localStorage.getItem('current_student') || 'null');
-                        const isCurrentlyOnline = currentStudent && currentStudent.id === student.id;
-                        
-                        // Use the same online detection as student system
-                        const lastActivity = new Date(student.lastActivity || student.lastLogin || student.createdAt);
-                        const now = new Date();
-                        const minutesSinceLastActivity = (now - lastActivity) / (1000 * 60);
-                        
-                        // Student is online if they have current session OR were active in last 5 minutes
-                        student.isOnline = isCurrentlyOnline || minutesSinceLastActivity < 5;
-                        return student;
-                    });
-
-                    this.students = updatedStudents;
-                    this.applyFilters();
-                } catch (error) {
-                    console.error('❌ Error loading students:', error);
-                    this.students = [];
-                    this.applyFilters();
-                }
+            startAutoRefresh() {
+                setInterval(() => {
+                    this.loadStudents();
+                }, 3000);
             }
 
             applyFilters() {
                 let filtered = [...this.students];
 
+                // Apply search filter
                 if (this.searchTerm) {
                     filtered = filtered.filter(student => 
                         student.name.toLowerCase().includes(this.searchTerm) ||
-                        student.class.toLowerCase().includes(this.searchTerm) ||
-                        (student.password && student.password.includes(this.searchTerm))
+                        student.class.toLowerCase().includes(this.searchTerm)
                     );
                 }
 
+                // Apply class filter
                 if (this.selectedClass) {
                     filtered = filtered.filter(student => student.class === this.selectedClass);
                 }
 
+                // Apply status filter
                 if (this.selectedStatus !== 'all') {
                     filtered = filtered.filter(student => {
                         if (this.selectedStatus === 'online') return student.isOnline === true;
@@ -905,8 +550,13 @@
                     });
                 }
 
+                // Apply sorting
                 filtered.sort((a, b) => {
-                    return this.sortDescending ? b.points - a.points : a.points - b.points;
+                    if (this.sortDescending) {
+                        return b.points - a.points;
+                    } else {
+                        return a.points - b.points;
+                    }
                 });
 
                 this.filteredStudents = filtered;
@@ -927,13 +577,8 @@
 
                 document.getElementById('total-students').textContent = totalStudents;
                 document.getElementById('online-students').textContent = onlineStudents;
-                document.getElementById('total-points').textContent = totalPoints.toLocaleString();
+                document.getElementById('total-points').textContent = totalPoints;
                 document.getElementById('avg-points').textContent = avgPoints;
-                document.getElementById('avg-points-display').textContent = avgPoints;
-
-                // Update online progress
-                const onlinePercent = totalStudents > 0 ? (onlineStudents / totalStudents) * 100 : 0;
-                document.getElementById('online-progress').style.width = `${onlinePercent}%`;
             }
 
             updateStudentsTable() {
@@ -942,7 +587,7 @@
                 const noResultsState = document.getElementById('no-results-state');
                 const studentCount = document.getElementById('student-count');
 
-                studentCount.innerHTML = `<i class="fas fa-users mr-2"></i><span>${this.filteredStudents.length} petualang</span>`;
+                studentCount.textContent = `${this.filteredStudents.length} petualang`;
 
                 if (this.students.length === 0) {
                     tbody.innerHTML = '';
@@ -962,338 +607,63 @@
                 noResultsState.classList.add('hidden');
 
                 tbody.innerHTML = this.filteredStudents.map(student => `
-                    <tr class="student-row">
-                        <td class="px-6 py-5">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 bg-gradient-to-r from-gold to-bronze rounded-2xl flex items-center justify-center ancient-border text-darkBrown font-semibold">
-                                    <i class="fas fa-${student.profileIcon || 'book-reader'} text-lg"></i>
+                    <tr class="student-row border-b border-darkBrown hover:bg-gold/10">
+                        <td class="mobile-px-3 mobile-py-2">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-gradient-to-r from-gold to-bronze rounded-full flex items-center justify-center text-darkBrown font-semibold ancient-border mobile-text-sm">
+                                    <i class="fas fa-${student.profileIcon || 'book-reader'}"></i>
                                 </div>
                                 <div>
-                                    <div class="font-semibold text-dark text-lg">
+                                    <div class="font-semibold text-darkBrown mobile-text-sm">
                                         ${this.highlightSearchTerm(student.name)}
                                     </div>
-                                    <div class="text-dark font-medieval text-sm opacity-70">ID: ${student.id.slice(-6)}</div>
+                                    <div class="text-darkBrown font-medieval mobile-text-xs">ID: ${student.id.slice(-4)}</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-5">
-                            <span class="bg-gold/20 text-dark px-4 py-2 rounded-xl text-base font-semibold font-medieval border-2 border-darkBrown">
+                        <td class="mobile-px-3 mobile-py-2">
+                            <span class="bg-gold/20 text-darkBrown mobile-px-2 mobile-py-1 rounded-full mobile-text-xs font-semibold font-medieval border border-darkBrown">
                                 ${student.class}
                             </span>
                         </td>
-                        <td class="px-6 py-5">
-                            <div class="flex items-center space-x-2">
-                                <span class="font-mono text-dark text-lg password-field bg-oldPaper px-3 py-1 rounded border border-darkBrown">
-                                    ${student.password || 'belum-set'}
-                                </span>
-                                <button onclick="adminSystem.copyPassword('${student.id}')" class="copy-password text-gold hover:text-bronze text-lg" title="Salin Password">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5">
-                            <div class="flex flex-col space-y-3">
-                                <span class="font-bold text-dark text-xl">${student.points.toLocaleString()}</span>
-                                <div class="w-32 bg-darkBrown rounded-full h-3">
-                                    <div class="rank-progress h-3 rounded-full transition-all duration-1000" 
+                        <td class="mobile-px-3 mobile-py-2">
+                            <div class="flex flex-col space-y-1">
+                                <span class="font-bold text-darkBrown mobile-text-sm">${student.points}</span>
+                                <div class="w-20 bg-darkBrown rounded-full h-2">
+                                    <div class="rank-progress h-2 rounded-full transition-all duration-1000" 
                                          style="width: ${Math.min(100, (student.points / 1000) * 100)}%"></div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-5">
-                            <span class="px-4 py-2 rounded-xl text-base font-semibold border-2 border-darkBrown ${
+                        <td class="mobile-px-3 mobile-py-2">
+                            <span class="mobile-px-2 mobile-py-1 rounded mobile-text-xs font-semibold border border-darkBrown ${
                                 this.getRankColor(student.points)
                             } font-medieval">
-                                ${this.getRankName(student.points)}
+                                ${this.getShortRankName(student.points)}
                             </span>
                         </td>
-                        <td class="px-6 py-5">
-                            <span class="px-4 py-2 rounded-xl text-base font-semibold border-2 border-darkBrown ${
+                        <td class="mobile-px-3 mobile-py-2">
+                            <span class="mobile-px-2 mobile-py-1 rounded mobile-text-xs font-semibold border border-darkBrown ${
                                 student.isOnline ? 'bg-forestGreen/20 text-forestGreen' : 'bg-deepRed/20 text-deepRed'
                             } font-medieval flex items-center">
                                 <span class="online-status ${student.isOnline ? 'status-online' : 'status-offline'}"></span>
                                 ${student.isOnline ? 'Online' : 'Offline'}
                             </span>
                         </td>
-                        <td class="px-6 py-5">
-                            <div class="flex flex-col space-y-2">
+                        <td class="mobile-px-3 mobile-py-2">
+                            <div class="flex flex-col space-y-1">
                                 <button onclick="adminSystem.showAddPointsModal('${student.id}')" 
-                                        class="bg-gold hover:bg-yellow-600 text-darkBrown px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-darkBrown font-medieval text-base flex items-center justify-center action-btn">
-                                    <i class="fas fa-plus mr-2"></i>Tambah XP
+                                        class="bg-gold hover:bg-yellow-600 text-darkBrown mobile-px-2 mobile-py-1 rounded font-semibold transition-all duration-300 transform hover:scale-105 border border-darkBrown font-medieval mobile-text-xs flex items-center justify-center">
+                                    <i class="fas fa-plus mr-1"></i>XP
                                 </button>
                                 <button onclick="adminSystem.resetStudent('${student.id}')" 
-                                        class="bg-deepRed hover:bg-red-800 text-parchment px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 border-gold font-medieval text-base flex items-center justify-center action-btn">
-                                    <i class="fas fa-redo mr-2"></i>Reset
+                                        class="bg-deepRed hover:bg-red-800 text-parchment mobile-px-2 mobile-py-1 rounded font-semibold transition-all duration-300 transform hover:scale-105 border border-gold font-medieval mobile-text-xs flex items-center justify-center">
+                                    <i class="fas fa-redo"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
                 `).join('');
-            }
-
-            // FIXED: Enhanced points addition with immediate sync
-            showAddPointsModal(studentId) {
-                this.selectedStudentId = studentId;
-                document.getElementById('points-amount').value = 5;
-                document.getElementById('add-points-modal').classList.remove('hidden');
-            }
-
-            addPointsToStudent() {
-                if (!this.selectedStudentId) {
-                    this.showNotification('Tidak ada siswa yang dipilih', 'error');
-                    return;
-                }
-
-                const points = parseInt(document.getElementById('points-amount').value) || 5;
-                console.log('🎯 Admin: Menambah points:', points, 'ke student:', this.selectedStudentId);
-
-                // Cari student berdasarkan ID
-                const studentIndex = this.students.findIndex(s => s.id === this.selectedStudentId);
-                
-                if (studentIndex === -1) {
-                    this.showNotification('Siswa tidak ditemukan', 'error');
-                    return;
-                }
-
-                // Update data student
-                const oldPoints = this.students[studentIndex].points;
-                this.students[studentIndex].points = oldPoints + points;
-                this.students[studentIndex].lastActivity = new Date().toISOString();
-                this.students[studentIndex].level = this.getLevelFromPoints(this.students[studentIndex].points);
-
-                console.log('✅ Points sebelum:', oldPoints, 'setelah:', this.students[studentIndex].points);
-
-                // Simpan perubahan ke localStorage
-                this.saveChanges();
-                this.closeAddPointsModal();
-                
-                const studentName = this.students[studentIndex].name;
-                this.logAdminActivity('add_points', `Menambahkan ${points} XP ke ${studentName}`);
-                this.showNotification(`✅ +${points} XP berhasil ditambahkan ke ${studentName}`, 'success');
-            }
-
-            showBulkAddModal(points) {
-                this.bulkPoints = points;
-                document.getElementById('bulk-points-amount').textContent = points;
-                document.getElementById('bulk-add-modal').classList.remove('hidden');
-            }
-
-            // FIXED: Enhanced bulk points addition with immediate sync
-            addPointsToAllStudents() {
-                const points = this.bulkPoints;
-                console.log('🎯 Admin: Menambah points ke semua siswa:', points);
-                
-                let updatedCount = 0;
-                this.students.forEach((student, index) => {
-                    const oldPoints = student.points;
-                    this.students[index].points = oldPoints + points;
-                    this.students[index].lastActivity = new Date().toISOString();
-                    this.students[index].level = this.getLevelFromPoints(this.students[index].points);
-                    updatedCount++;
-                    
-                    console.log(`📊 Student ${student.name}: ${oldPoints} -> ${this.students[index].points}`);
-                });
-
-                this.saveChanges();
-                this.closeBulkAddModal();
-                
-                this.logAdminActivity('bulk_add_points', `Menambahkan ${points} XP ke semua ${updatedCount} siswa`);
-                this.showNotification(`✅ +${points} XP ke ${updatedCount} petualang`, 'success');
-            }
-
-            resetStudent(studentId) {
-                if (confirm('Reset XP petualang ini? Semua progress akan hilang.')) {
-                    const studentIndex = this.students.findIndex(s => s.id === studentId);
-                    if (studentIndex !== -1) {
-                        const studentName = this.students[studentIndex].name;
-                        this.students[studentIndex].points = 0;
-                        this.students[studentIndex].level = 0;
-                        this.students[studentIndex].lastActivity = new Date().toISOString();
-                        this.saveChanges();
-                        
-                        this.logAdminActivity('reset_student', `Reset XP ${studentName}`);
-                        this.showNotification(`🔄 XP ${studentName} direset`, 'info');
-                    }
-                }
-            }
-
-            // FIXED: Enhanced save method with immediate sync
-            saveChanges() {
-                try {
-                    console.log('💾 Admin: Menyimpan data siswa:', this.students);
-                    localStorage.setItem('literatreee', JSON.stringify(this.students));
-                    
-                    // Trigger storage event to sync with student system
-                    window.dispatchEvent(new Event('storage'));
-                    
-                    // Verifikasi penyimpanan
-                    const savedData = JSON.parse(localStorage.getItem('literatreee') || '[]');
-                    console.log('✅ Data tersimpan:', savedData);
-                    
-                    this.applyFilters();
-                } catch (error) {
-                    console.error('❌ Error saving data:', error);
-                    this.showNotification('Error menyimpan data', 'error');
-                }
-            }
-
-            // NEW FEATURE: Export all data
-            exportAllData() {
-                const data = {
-                    students: this.students,
-                    exportDate: new Date().toISOString(),
-                    totalStudents: this.students.length,
-                    totalPoints: this.students.reduce((sum, s) => sum + s.points, 0),
-                    statistics: this.getStatistics()
-                };
-
-                const dataStr = JSON.stringify(data, null, 2);
-                const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `perpustakaan_abadi_export_${new Date().toISOString().split('T')[0]}.json`;
-                link.click();
-                URL.revokeObjectURL(url);
-
-                this.logAdminActivity('export_data', 'Mengekspor semua data sistem');
-                this.showNotification('📊 Data berhasil diekspor!', 'success');
-            }
-
-            getStatistics() {
-                return {
-                    totalStudents: this.students.length,
-                    onlineStudents: this.students.filter(s => s.isOnline).length,
-                    totalPoints: this.students.reduce((sum, s) => sum + s.points, 0),
-                    averagePoints: Math.round(this.students.reduce((sum, s) => sum + s.points, 0) / this.students.length) || 0,
-                    rankDistribution: this.getRankDistribution()
-                };
-            }
-
-            getRankDistribution() {
-                const distribution = {};
-                this.students.forEach(student => {
-                    const rank = this.getRankName(student.points);
-                    distribution[rank] = (distribution[rank] || 0) + 1;
-                });
-                return distribution;
-            }
-
-            // NEW FEATURE: Backup system
-            showBackupModal() {
-                document.getElementById('backup-modal').classList.remove('hidden');
-            }
-
-            closeBackupModal() {
-                document.getElementById('backup-modal').classList.add('hidden');
-            }
-
-            createBackup() {
-                const backup = {
-                    students: this.students,
-                    timestamp: new Date().toISOString(),
-                    version: '1.0',
-                    backupId: 'backup_' + Date.now()
-                };
-
-                localStorage.setItem(backup.backupId, JSON.stringify(backup));
-                this.logAdminActivity('create_backup', 'Membuat backup data sistem');
-                this.showNotification('✅ Backup berhasil dibuat!', 'success');
-            }
-
-            exportBackup() {
-                const backupKeys = Object.keys(localStorage).filter(key => key.startsWith('backup_'));
-                if (backupKeys.length === 0) {
-                    this.showNotification('Tidak ada backup yang tersedia', 'warning');
-                    return;
-                }
-
-                const latestBackupKey = backupKeys.sort().reverse()[0];
-                const backupData = localStorage.getItem(latestBackupKey);
-                
-                const dataBlob = new Blob([backupData], { type: 'application/json' });
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `backup_${latestBackupKey}.json`;
-                link.click();
-                URL.revokeObjectURL(url);
-
-                this.logAdminActivity('export_backup', 'Mengekspor backup data');
-                this.showNotification('✅ Backup berhasil diekspor!', 'success');
-            }
-
-            // Utility methods
-            copyPassword(studentId) {
-                const student = this.students.find(s => s.id === studentId);
-                if (student && student.password) {
-                    navigator.clipboard.writeText(student.password);
-                    this.showNotification('Password berhasil disalin!', 'success');
-                } else {
-                    this.showNotification('Password belum diatur', 'error');
-                }
-            }
-
-            refreshData() {
-                this.loadStudents();
-                this.showNotification('Data berhasil diperbarui', 'success');
-            }
-
-            clearSearch() {
-                document.getElementById('search-input').value = '';
-                this.searchTerm = '';
-                this.selectedClass = '';
-                this.selectedStatus = 'all';
-                this.updateFilterButtons();
-                this.applyFilters();
-            }
-
-            filterByClass(className) {
-                this.selectedClass = className;
-                this.updateFilterButtons();
-                this.applyFilters();
-            }
-
-            filterByStatus(status) {
-                this.selectedStatus = status;
-                this.updateFilterButtons();
-                this.applyFilters();
-            }
-
-            toggleSort() {
-                this.sortDescending = !this.sortDescending;
-                const sortIcon = document.getElementById('sort-icon');
-                const sortText = document.getElementById('sort-text');
-                
-                if (this.sortDescending) {
-                    sortIcon.className = 'fas fa-sort-amount-down mr-2';
-                    sortText.textContent = 'XP Tertinggi';
-                } else {
-                    sortIcon.className = 'fas fa-sort-amount-up mr-2';
-                    sortText.textContent = 'XP Terendah';
-                }
-                
-                this.applyFilters();
-            }
-
-            updateFilterButtons() {
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-
-                if (this.selectedClass === '') {
-                    document.querySelector('.filter-btn:first-child').classList.add('active');
-                } else {
-                    const classButtons = document.querySelectorAll(`[onclick*="${this.selectedClass}"]`);
-                    classButtons.forEach(btn => btn.classList.add('active'));
-                }
-
-                const statusButtons = document.querySelectorAll('[onclick*="filterByStatus"]');
-                statusButtons.forEach(btn => {
-                    if (btn.onclick.toString().includes(this.selectedStatus)) {
-                        btn.classList.add('active');
-                    }
-                });
             }
 
             updateSearchInfo() {
@@ -1326,8 +696,146 @@
 
             highlightSearchTerm(text) {
                 if (!this.searchTerm) return text;
+                
                 const regex = new RegExp(`(${this.searchTerm})`, 'gi');
                 return text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+
+            clearSearch() {
+                document.getElementById('search-input').value = '';
+                this.searchTerm = '';
+                this.selectedClass = '';
+                this.selectedStatus = 'all';
+                this.updateFilterButtons();
+                this.applyFilters();
+            }
+
+            filterByClass(className) {
+                this.selectedClass = className;
+                this.updateFilterButtons();
+                this.applyFilters();
+            }
+
+            filterByStatus(status) {
+                this.selectedStatus = status;
+                this.updateFilterButtons();
+                this.applyFilters();
+            }
+
+            updateFilterButtons() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Add active class to current class filter
+                if (this.selectedClass === '') {
+                    document.querySelector('.filter-btn:first-child').classList.add('active');
+                } else {
+                    const activeClassBtn = document.querySelector(`.filter-btn:contains("${this.selectedClass}")`);
+                    if (activeClassBtn) {
+                        activeClassBtn.classList.add('active');
+                    }
+                }
+
+                // Add active class to current status filter
+                if (this.selectedStatus === 'all') {
+                    document.querySelectorAll('.filter-btn')[1].classList.add('active');
+                } else if (this.selectedStatus === 'online') {
+                    document.querySelectorAll('.filter-btn')[2].classList.add('active');
+                } else if (this.selectedStatus === 'offline') {
+                    document.querySelectorAll('.filter-btn')[3].classList.add('active');
+                }
+            }
+
+            toggleSort() {
+                this.sortDescending = !this.sortDescending;
+                const sortIcon = document.getElementById('sort-icon');
+                const sortText = document.getElementById('sort-text');
+                
+                if (this.sortDescending) {
+                    sortIcon.className = 'fas fa-sort-amount-down mr-1';
+                    sortText.textContent = 'XP Tertinggi';
+                } else {
+                    sortIcon.className = 'fas fa-sort-amount-up mr-1';
+                    sortText.textContent = 'XP Terendah';
+                }
+                
+                this.applyFilters();
+            }
+
+            // Method untuk menampilkan modal tambah point
+            showAddPointsModal(studentId) {
+                this.selectedStudentId = studentId;
+                document.getElementById('points-amount').value = 5;
+                document.getElementById('add-points-modal').classList.remove('hidden');
+            }
+
+            // Method untuk menambahkan point ke student tertentu - FIXED
+            addPointsToStudent() {
+                if (!this.selectedStudentId) {
+                    this.showNotification('Tidak ada siswa yang dipilih', 'error');
+                    return;
+                }
+
+                const points = parseInt(document.getElementById('points-amount').value) || 5;
+
+                // Cari student berdasarkan ID
+                const studentIndex = this.students.findIndex(s => s.id === this.selectedStudentId);
+                
+                if (studentIndex === -1) {
+                    this.showNotification('Siswa tidak ditemukan', 'error');
+                    return;
+                }
+
+                // Update data student
+                this.students[studentIndex].points += points;
+                this.students[studentIndex].lastActivity = new Date().toISOString();
+
+                // FIXED: Simpan ke SATU storage utama
+                this.saveChanges();
+                this.closeAddPointsModal();
+                
+                const studentName = this.students[studentIndex].name;
+                this.showNotification(`+${points} XP berhasil ditambahkan ke ${studentName}`, 'success');
+            }
+
+            showBulkAddModal(points) {
+                this.bulkPoints = points;
+                document.getElementById('bulk-points-amount').textContent = points;
+                document.getElementById('bulk-add-modal').classList.remove('hidden');
+            }
+
+            addPointsToAllStudents() {
+                const points = this.bulkPoints;
+                
+                this.students.forEach((student, index) => {
+                    this.students[index].points += points;
+                    this.students[index].lastActivity = new Date().toISOString();
+                });
+
+                this.saveChanges();
+                this.closeBulkAddModal();
+                this.showNotification(`+${points} XP ke semua petualang`, 'success');
+            }
+
+            resetStudent(studentId) {
+                if (confirm('Reset XP petualang ini?')) {
+                    const studentIndex = this.students.findIndex(s => s.id === studentId);
+                    if (studentIndex !== -1) {
+                        this.students[studentIndex].points = 0;
+                        this.students[studentIndex].level = 0;
+                        this.students[studentIndex].lastActivity = new Date().toISOString();
+                        this.saveChanges();
+                        this.showNotification(`XP ${this.students[studentIndex].name} direset`, 'info');
+                    }
+                }
+            }
+
+            saveChanges() {
+                // FIXED: Simpan ke SATU storage utama saja
+                localStorage.setItem('perpustakaan_abadi_students', JSON.stringify(this.students));
+                this.applyFilters();
             }
 
             closeAddPointsModal() {
@@ -1340,13 +848,22 @@
                 this.bulkPoints = 0;
             }
 
-            getLevelFromPoints(points) {
-                if (points >= 1000) return 5;
-                if (points >= 800) return 4;
-                if (points >= 600) return 3;
-                if (points >= 300) return 2;
-                if (points >= 100) return 1;
-                return 0;
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `fixed top-4 right-4 z-50 mobile-px-4 mobile-py-2 rounded-lg font-semibold text-white transition-all duration-300 transform translate-x-full border ${
+                    type === 'error' ? 'bg-deepRed border-red-300' : 
+                    type === 'success' ? 'bg-forestGreen border-green-300' : 'bg-mysticBlue border-blue-300'
+                } font-medieval mobile-text-sm max-w-xs`;
+                notification.textContent = message;
+
+                document.body.appendChild(notification);
+
+                setTimeout(() => notification.style.transform = 'translateX(0)', 100);
+
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
             }
 
             getRankName(points) {
@@ -1358,6 +875,15 @@
                 return '📖 Pemula Naskah';
             }
 
+            getShortRankName(points) {
+                if (points >= 1000) return '🏆';
+                if (points >= 800) return '📗';
+                if (points >= 600) return '📘';
+                if (points >= 300) return '📜';
+                if (points >= 100) return '📚';
+                return '📖';
+            }
+
             getRankColor(points) {
                 if (points >= 1000) return 'bg-gradient-to-r from-red-500 to-yellow-500 text-white';
                 if (points >= 800) return 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white';
@@ -1366,61 +892,32 @@
                 if (points >= 100) return 'bg-gradient-to-r from-green-500 to-emerald-500 text-white';
                 return 'bg-gradient-to-r from-gray-400 to-gray-600 text-white';
             }
-
-            // NEW FEATURE: Admin activity logging
-            logAdminActivity(type, description) {
-                try {
-                    const logs = JSON.parse(localStorage.getItem('admin_activity_logs') || '[]');
-                    logs.push({
-                        type: type,
-                        description: description,
-                        timestamp: new Date().toISOString(),
-                        admin: 'admin'
-                    });
-
-                    // Keep only last 500 logs
-                    if (logs.length > 500) {
-                        logs.splice(0, logs.length - 500);
-                    }
-
-                    localStorage.setItem('admin_activity_logs', JSON.stringify(logs));
-                } catch (error) {
-                    console.error('Error logging admin activity:', error);
-                }
-            }
-
-            showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `fixed top-6 right-6 z-50 px-6 py-4 rounded-2xl font-semibold text-white transition-all duration-300 transform translate-x-full border-2 ${
-                    type === 'error' ? 'bg-deepRed border-red-300' : 
-                    type === 'success' ? 'bg-forestGreen border-green-300' : 
-                    type === 'warning' ? 'bg-yellow-500 border-yellow-300' : 'bg-mysticBlue border-blue-300'
-                } font-medieval text-lg max-w-sm shadow-2xl`;
-                notification.textContent = message;
-
-                document.body.appendChild(notification);
-
-                setTimeout(() => notification.style.transform = 'translateX(0)', 100);
-
-                setTimeout(() => {
-                    notification.style.transform = 'translateX(100%)';
-                    setTimeout(() => notification.remove(), 300);
-                }, 4000);
-            }
         }
 
-        // Global functions
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = input.nextElementSibling.querySelector('i');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fas fa-eye-slash text-darkBrown';
-            } else {
-                input.type = 'password';
-                icon.className = 'fas fa-eye text-darkBrown';
-            }
+        // Global functions untuk modal
+        function showBulkAddModal(points) {
+            adminSystem.showBulkAddModal(points);
+        }
+
+        function closeAddPointsModal() {
+            adminSystem.closeAddPointsModal();
+        }
+
+        function closeBulkAddModal() {
+            adminSystem.closeBulkAddModal();
+        }
+
+        function addPointsToStudent() {
+            adminSystem.addPointsToStudent();
+        }
+
+        function addPointsToAllStudents() {
+            adminSystem.addPointsToAllStudents();
+        }
+
+        function refreshData() {
+            adminSystem.loadStudents();
+            adminSystem.showNotification('Data diperbarui', 'success');
         }
 
         // Initialize admin system
