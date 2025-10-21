@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pohon - Siswa</title>
+    <title>LiteraTree - Siswa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=MedievalSharp&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
@@ -58,7 +58,6 @@
         }
     </script>
     <style>
-        /* KEEP ALL YOUR EXISTING CSS STYLES */
         body {
             background: linear-gradient(135deg, #1a2f1a 0%, #0f200f 50%, #081508 100%);
             background-image: 
@@ -222,7 +221,6 @@
             border: 2px solid #D4AF37;
         }
 
-        /* Connection Status */
         .connection-status {
             position: fixed;
             top: 80px;
@@ -247,7 +245,6 @@
             color: #ef4444;
         }
         
-        /* Custom Scrollbar untuk Form Register */
         .scrollable-form {
             max-height: 60vh;
             overflow-y: auto;
@@ -272,7 +269,6 @@
             background: rgba(139, 69, 19, 0.5);
         }
 
-        /* PERBAIKAN: Admin Update Notification */
         .admin-update-notification {
             position: fixed;
             top: 100px;
@@ -294,12 +290,10 @@
             transform: translateX(0);
         }
 
-        /* PERBAIKAN: Progress Bar Animation */
         .progress-bar-animated {
             transition: width 1s ease-in-out;
         }
         
-        /* NEW: Real-time sync indicator */
         .sync-indicator {
             position: fixed;
             bottom: 20px;
@@ -369,7 +363,7 @@
                         <i class="fas fa-tree text-white text-sm"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg md:text-2xl font-bold text-forestGreen font-maguntia">Pohon</h1>
+                        <h1 class="text-lg md:text-2xl font-bold text-forestGreen font-maguntia">LiteraTree</h1>
                         <p class="text-silver text-xs md:text-sm font-medieval hidden md:block">Tumbuh Bersama Ilmu</p>
                     </div>
                 </div>
@@ -402,7 +396,7 @@
                 <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-forestGreen to-green-600 rounded-2xl flex items-center justify-center ancient-border">
                     <i class="fas fa-tree text-white text-2xl"></i>
                 </div>
-                <h2 class="text-2xl md:text-3xl font-bold text-dark font-maguntia mb-2">Pohon</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-dark font-maguntia mb-2">LiteraTree</h2>
                 <p class="text-dark font-medieval text-sm">Tumbuhlah bersama ilmu pengetahuan!</p>
             </div>
 
@@ -582,7 +576,7 @@
                 <div class="parchment-bg rounded-2xl p-4 md:p-6 ancient-border">
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 mb-4 md:mb-6">
                         <div class="text-center md:text-left">
-                            <h3 class="text-xl md:text-2xl font-bold text-dark font-maguntia mb-1">Progress Pohon</h3>
+                            <h3 class="text-xl md:text-2xl font-bold text-dark font-maguntia mb-1">Progress LiteraTree</h3>
                             <p class="text-dark font-medieval text-sm" id="progress-text">Tumbuhkan pohonmu dengan membaca!</p>
                         </div>
                         <div class="flex space-x-3">
@@ -744,7 +738,7 @@
     <!-- Footer -->
     <footer class="bg-darkBrown/90 text-silver py-4 border-t-2 border-forestGreen">
         <div class="container mx-auto px-4 text-center font-medieval text-xs">
-            <p>© 2024 Pohon. Where knowledge legends are born.</p>
+            <p>© 2024 LiteraTree. Where knowledge legends are born.</p>
         </div>
     </footer>
 
@@ -760,7 +754,12 @@
                 this.isOnline = false;
                 this.lastAdminUpdate = null;
                 this.adminUpdateCheckInterval = null;
-                this.dataKey = 'pohon_students'; // KEY YANG SAMA DENGAN ADMIN
+                
+                // PERUBAHAN: Semua localStorage key diganti menjadi 'literatree'
+                this.dataKey = 'literatree_students';
+                this.currentStudentKey = 'literatree_current_student';
+                this.activityLogsKey = 'literatree_activity_logs';
+                this.syncTriggerKey = 'literatree_sync_trigger';
                 
                 this.init();
             }
@@ -808,7 +807,7 @@
                 });
             }
 
-            // PERBAIKAN BARU: Admin Update Checker dengan real-time sync
+            // Admin Update Checker dengan real-time sync
             startAdminUpdateChecker() {
                 if (this.adminUpdateCheckInterval) {
                     clearInterval(this.adminUpdateCheckInterval);
@@ -816,7 +815,7 @@
                 
                 this.adminUpdateCheckInterval = setInterval(() => {
                     this.checkForAdminUpdates();
-                }, 1000); // Check every second for real-time updates
+                }, 1000);
             }
 
             stopAdminUpdateChecker() {
@@ -826,13 +825,13 @@
                 }
             }
 
-            // PERBAIKAN BESAR: Check for admin updates dengan real-time sync
+            // Check for admin updates dengan real-time sync
             checkForAdminUpdates() {
                 if (!this.currentStudent) return;
 
                 try {
                     // Check admin sync trigger
-                    const syncTrigger = JSON.parse(localStorage.getItem('admin_sync_trigger') || 'null');
+                    const syncTrigger = JSON.parse(localStorage.getItem(this.syncTriggerKey) || 'null');
                     if (syncTrigger && syncTrigger.timestamp !== this.lastAdminUpdate) {
                         console.log('🔄 Student: Detected admin sync trigger');
                         this.lastAdminUpdate = syncTrigger.timestamp;
@@ -866,7 +865,7 @@
                 }
             }
 
-            // PERBAIKAN BARU: Load student data from localStorage
+            // Load student data from localStorage
             loadStudentData() {
                 if (!this.currentStudent) return;
 
@@ -894,7 +893,7 @@
                 }
             }
 
-            // PERBAIKAN BARU: Show admin update notification
+            // Show admin update notification
             showAdminUpdateNotification(message) {
                 const notification = document.getElementById('admin-update-notification');
                 const messageElement = document.getElementById('admin-update-message');
@@ -917,7 +916,7 @@
                 this.showNotification(`🎁 ${message}`, 'success');
             }
 
-            // PERBAIKAN BARU: Show sync indicator
+            // Show sync indicator
             showSyncIndicator() {
                 const indicator = document.getElementById('sync-indicator');
                 if (indicator) {
@@ -953,7 +952,7 @@
             }
 
             checkExistingSession() {
-                const savedStudent = localStorage.getItem('current_student');
+                const savedStudent = localStorage.getItem(this.currentStudentKey);
                 if (savedStudent) {
                     try {
                         this.currentStudent = JSON.parse(savedStudent);
@@ -963,11 +962,11 @@
                         this.startAutoSync();
                         this.updateGlobalRank();
                         
-                        // PERBAIKAN: Load latest data saat session dimulai
+                        // Load latest data saat session dimulai
                         this.loadStudentData();
                     } catch (error) {
                         console.error('Error loading session:', error);
-                        localStorage.removeItem('current_student');
+                        localStorage.removeItem(this.currentStudentKey);
                     }
                 }
             }
@@ -1088,7 +1087,7 @@
                     this.logActivity('logout', 'Logged out from system');
                 }
                 this.currentStudent = null;
-                localStorage.removeItem('current_student');
+                localStorage.removeItem(this.currentStudentKey);
                 this.showAuthInterface();
                 this.showNotification('Until we meet again, adventurer!', 'info');
             }
@@ -1249,7 +1248,7 @@
                 }
             }
 
-            // PERBAIKAN BESAR: Method updateNextRankProgress yang benar
+            // Method updateNextRankProgress yang benar
             updateNextRankProgress(points, level) {
                 const rankThresholds = [0, 100, 300, 600, 800, 1000];
                 
@@ -1273,7 +1272,7 @@
                 console.log(`📊 Current: ${currentThreshold}, Next: ${nextThreshold}`);
                 console.log(`📊 Progress: ${progressInRank}/${rankRange} = ${progressPercent}%`);
 
-                // PERBAIKAN: Gunakan class progress-bar-animated untuk smooth animation
+                // Gunakan class progress-bar-animated untuk smooth animation
                 const progressBar = document.getElementById('next-rank-progress');
                 progressBar.style.width = `${Math.min(100, Math.max(0, progressPercent))}%`;
                 
@@ -1347,7 +1346,7 @@
                 }
             }
 
-            // NEW FEATURE: Leaderboard
+            // Leaderboard
             showLeaderboard() {
                 const leaderboardModal = document.getElementById('leaderboard-modal');
                 const leaderboardContent = document.getElementById('leaderboard-content');
@@ -1386,7 +1385,7 @@
                 document.getElementById('leaderboard-modal').classList.add('hidden');
             }
 
-            // NEW FEATURE: Export Data
+            // Export Data
             exportData() {
                 if (!this.currentStudent) return;
 
@@ -1402,7 +1401,7 @@
                 const url = URL.createObjectURL(dataBlob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `progress_${this.currentStudent.name}_${new Date().toISOString().split('T')[0]}.json`;
+                link.download = `literatree_progress_${this.currentStudent.name}_${new Date().toISOString().split('T')[0]}.json`;
                 link.click();
                 URL.revokeObjectURL(url);
 
@@ -1415,7 +1414,7 @@
                 return sortedStudents.findIndex(s => s.id === this.currentStudent.id) + 1;
             }
 
-            // NEW FEATURE: Activity Logging
+            // Activity Logging
             logActivity(type, description) {
                 if (!this.currentStudent) return;
 
@@ -1428,10 +1427,10 @@
                     timestamp: new Date().toISOString()
                 };
 
-                // Save to localStorage first
-                let activities = JSON.parse(localStorage.getItem('activity_logs') || '[]');
+                // Save to localStorage
+                let activities = JSON.parse(localStorage.getItem(this.activityLogsKey) || '[]');
                 activities.push(activity);
-                localStorage.setItem('activity_logs', JSON.stringify(activities));
+                localStorage.setItem(this.activityLogsKey, JSON.stringify(activities));
             }
 
             startAutoSync() {
@@ -1466,7 +1465,7 @@
             saveCurrentStudent() {
                 if (this.currentStudent) {
                     try {
-                        localStorage.setItem('current_student', JSON.stringify(this.currentStudent));
+                        localStorage.setItem(this.currentStudentKey, JSON.stringify(this.currentStudent));
                     } catch (error) {
                         console.error('Error saving current student:', error);
                     }
