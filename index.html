@@ -227,6 +227,17 @@
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(139, 69, 19, 0.1));
             border: 2px solid #D4AF37;
         }
+
+        /* XP Update Animation */
+        .xp-update {
+            animation: xpPulse 0.6s ease-out;
+        }
+
+        @keyframes xpPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body class="font-cinzel text-black min-h-screen">
@@ -541,7 +552,7 @@
                                     </div>
                                     <div class="flex justify-between">
                                         <span class="text-dark text-sm">Total XP:</span>
-                                        <span class="font-semibold text-bronze text-sm" id="total-xp">0</span>
+                                        <span class="font-semibold text-bronze text-sm xp-value" id="total-xp">0</span>
                                     </div>
                                     <div class="flex justify-between">
                                         <span class="text-dark text-sm">Status:</span>
@@ -582,6 +593,17 @@
                             <button onclick="closeAchievement()" class="bg-gold text-darkBrown px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 border-2 border-darkBrown font-medieval text-sm">
                                 Lanjutkan!
                             </button>
+                        </div>
+                    </div>
+
+                    <!-- XP Update Notification -->
+                    <div id="xp-update-notification" class="hidden fixed top-4 right-4 z-50 bg-gradient-to-r from-gold to-bronze text-darkBrown px-6 py-4 rounded-2xl font-semibold border-2 border-darkBrown font-medieval shadow-2xl">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-star text-xl"></i>
+                            <div>
+                                <div class="font-bold" id="xp-update-amount">+0 XP</div>
+                                <div class="text-sm" id="xp-update-source">Dari Admin</div>
+                            </div>
                         </div>
                     </div>
 
@@ -635,17 +657,19 @@
     </footer>
 
     <script>
-        // Enhanced Student Management System - FIXED ALL SYNC ISSUES
+        // Enhanced Student Management System - REAL-TIME XP SYNC
         class StudentSystem {
             constructor() {
                 this.currentStudent = null;
                 this.students = JSON.parse(localStorage.getItem('literatreee')) || [];
                 this.selectedProfileIcon = 'book-reader';
+                this.lastKnownPoints = 0;
                 this.init();
             }
 
             init() {
                 this.setupEventListeners();
+                this.setupStorageListener();
                 this.checkExistingSession();
                 this.startAutoSync();
                 this.setupBeforeUnload();
@@ -653,37 +677,122 @@
             }
 
             initializeData() {
-                // Initialize activity logs if not exists
                 if (!localStorage.getItem('activity_logs')) {
                     localStorage.setItem('activity_logs', JSON.stringify([]));
                 }
                 
-                // Initialize admin settings if not exists
                 if (!localStorage.getItem('admin_settings')) {
                     localStorage.setItem('admin_settings', JSON.stringify({
                         autoBackup: true,
-                        backupInterval: 24 // hours
+                        backupInterval: 24
                     }));
                 }
             }
 
             setupEventListeners() {
-                // Login form
                 document.getElementById('login-form').addEventListener('submit', (e) => {
                     e.preventDefault();
                     this.handleLogin();
                 });
 
-                // Register form
                 document.getElementById('register-form').addEventListener('submit', (e) => {
                     e.preventDefault();
                     this.handleRegister();
                 });
 
-                // Logout button
                 document.getElementById('logout-btn').addEventListener('click', () => {
                     this.handleLogout();
                 });
+            }
+
+            // NEW: Real-time storage listener untuk sync dengan admin panel
+            setupStorageListener() {
+                window.addEventListener('storage', (e) => {
+                    if (e.key === 'literatreee' && e.newValue) {
+                        console.log('🔄 Storage event: Data diperbarui dari admin');
+                        this.handleDataUpdate();
+                    }
+                });
+            }
+
+            // NEW: Handle data update dari admin
+            handleDataUpdate() {
+                if (!this.currentStudent) return;
+
+                try {
+                    const mainStudents = JSON.parse(localStorage.getItem('literatreee') || '[]');
+                    const latestStudentData = mainStudents.find(s => s.id === this.currentStudent.id);
+                    
+                    if (latestStudentData) {
+                        const oldPoints = this.currentStudent.points;
+                        const newPoints = latestStudentData.points;
+                        
+                        // Jika points berubah, update dan tampilkan notifikasi
+                        if (newPoints !== oldPoints) {
+                            const pointsDiff = newPoints - oldPoints;
+                            
+                            console.log(`🎯 XP Update: ${oldPoints} -> ${newPoints} (+${pointsDiff})`);
+                            
+                            // Update data student
+                            this.currentStudent.points = newPoints;
+                            this.currentStudent.level = this.getLevelFromPoints(newPoints);
+                            
+                            // Simpan session terbaru
+                            this.saveCurrentStudent();
+                            
+                            // Update tampilan dengan animasi
+                            this.updateDisplayWithAnimation(pointsDiff);
+                            
+                            // Tampilkan notifikasi XP
+                            if (pointsDiff > 0) {
+                                this.showXPNotification(pointsDiff);
+                            }
+                        }
+
+                        // Sync field lainnya
+                        if (latestStudentData.profileIcon !== this.currentStudent.profileIcon) {
+                            this.currentStudent.profileIcon = latestStudentData.profileIcon;
+                            this.updateProfileIcon();
+                        }
+
+                        this.updateGlobalRank();
+                    }
+                } catch (error) {
+                    console.error('Error handling data update:', error);
+                }
+            }
+
+            // NEW: Update display dengan animasi
+            updateDisplayWithAnimation(pointsDiff) {
+                // Animasi untuk XP value
+                const xpElement = document.getElementById('total-xp');
+                xpElement.classList.add('xp-update');
+                setTimeout(() => xpElement.classList.remove('xp-update'), 600);
+                
+                // Update display normal
+                this.updateDisplay();
+                
+                // Log activity
+                if (pointsDiff > 0) {
+                    this.logActivity('xp_received', `Menerima ${pointsDiff} XP dari admin`);
+                }
+            }
+
+            // NEW: Tampilkan notifikasi XP
+            showXPNotification(points) {
+                const notification = document.getElementById('xp-update-notification');
+                const amountElement = document.getElementById('xp-update-amount');
+                const sourceElement = document.getElementById('xp-update-source');
+                
+                amountElement.textContent = `+${points} XP`;
+                sourceElement.textContent = 'Dari Admin Panel';
+                
+                notification.classList.remove('hidden');
+                
+                // Auto hide setelah 3 detik
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 3000);
             }
 
             setupBeforeUnload() {
@@ -701,12 +810,11 @@
             }
 
             startAutoSync() {
-                // Enhanced sync with better error handling
+                // Sync setiap 1.5 detik untuk real-time update
                 setInterval(() => {
                     this.syncWithMainData();
-                }, 2000);
+                }, 1500);
 
-                // Auto-backup every hour
                 setInterval(() => {
                     this.createBackup();
                 }, 60 * 60 * 1000);
@@ -720,13 +828,22 @@
                     const latestStudentData = mainStudents.find(s => s.id === this.currentStudent.id);
                     
                     if (latestStudentData) {
+                        const oldPoints = this.currentStudent.points;
+                        const newPoints = latestStudentData.points;
+                        
                         // Check if points changed
-                        if (latestStudentData.points !== this.currentStudent.points) {
-                            console.log('🔁 Sync: Points berubah:', this.currentStudent.points, '->', latestStudentData.points);
-                            this.currentStudent.points = latestStudentData.points;
-                            this.currentStudent.level = this.getLevelFromPoints(latestStudentData.points);
+                        if (newPoints !== oldPoints) {
+                            console.log('🔁 Sync: Points berubah:', oldPoints, '->', newPoints);
+                            this.currentStudent.points = newPoints;
+                            this.currentStudent.level = this.getLevelFromPoints(newPoints);
                             this.updateDisplay();
-                            this.logActivity('points_updated', `XP diperbarui menjadi ${latestStudentData.points}`);
+                            
+                            // Tampilkan notifikasi jika ada peningkatan
+                            if (newPoints > oldPoints) {
+                                this.showXPNotification(newPoints - oldPoints);
+                            }
+                            
+                            this.logActivity('points_updated', `XP diperbarui menjadi ${newPoints}`);
                         }
 
                         // Sync other important fields
@@ -752,6 +869,7 @@
                     try {
                         this.currentStudent = JSON.parse(savedStudent);
                         this.selectedProfileIcon = this.currentStudent.profileIcon || 'book-reader';
+                        this.lastKnownPoints = this.currentStudent.points;
                         this.showMainInterface();
                         this.updateStudentStatus(true);
                         this.syncWithMainData();
@@ -773,7 +891,6 @@
                     return;
                 }
 
-                // Cari student yang sudah terdaftar
                 const student = this.students.find(s => 
                     s.name.toLowerCase() === name.toLowerCase() && 
                     s.class === studentClass
@@ -784,13 +901,13 @@
                     return;
                 }
 
-                // Check password
                 if (student.password !== password) {
                     this.showNotification('Password salah! Silakan coba lagi.', 'error');
                     return;
                 }
 
                 this.currentStudent = { ...student };
+                this.lastKnownPoints = student.points;
                 this.currentStudent.lastLogin = new Date().toISOString();
                 this.currentStudent.lastActivity = new Date().toISOString();
                 this.currentStudent.isOnline = true;
@@ -822,7 +939,6 @@
                     return;
                 }
 
-                // Cek apakah nama sudah terdaftar di kelas yang sama
                 const existingStudent = this.students.find(s => 
                     s.name.toLowerCase() === name.toLowerCase() && 
                     s.class === studentClass
@@ -834,7 +950,6 @@
                     return;
                 }
 
-                // Buat student baru
                 const student = {
                     id: this.generateStudentId(),
                     name: name,
@@ -852,6 +967,7 @@
 
                 this.students.push(student);
                 this.currentStudent = { ...student };
+                this.lastKnownPoints = 0;
 
                 this.saveToStorage();
                 this.showMainInterface();
@@ -880,7 +996,6 @@
                 this.currentStudent.isOnline = isOnline;
                 this.currentStudent.lastActivity = new Date().toISOString();
                 
-                // Update di storage utama
                 const studentIndex = this.students.findIndex(s => s.id === this.currentStudent.id);
                 if (studentIndex !== -1) {
                     this.students[studentIndex].isOnline = isOnline;
@@ -1122,14 +1237,13 @@
                 }
             }
 
-            // NEW FEATURE: Leaderboard
             showLeaderboard() {
                 const leaderboardModal = document.getElementById('leaderboard-modal');
                 const leaderboardContent = document.getElementById('leaderboard-content');
 
                 const sortedStudents = [...this.students]
                     .sort((a, b) => b.points - a.points)
-                    .slice(0, 20); // Top 20
+                    .slice(0, 20);
 
                 leaderboardContent.innerHTML = sortedStudents.map((student, index) => `
                     <div class="leaderboard-item ${index < 3 ? 'top-3' : ''} p-4 rounded-xl border-2 border-darkBrown">
@@ -1161,7 +1275,6 @@
                 document.getElementById('leaderboard-modal').classList.add('hidden');
             }
 
-            // NEW FEATURE: Export Data
             exportData() {
                 if (!this.currentStudent) return;
 
@@ -1190,7 +1303,6 @@
                 return sortedStudents.findIndex(s => s.id === this.currentStudent.id) + 1;
             }
 
-            // NEW FEATURE: Activity Logging
             logActivity(type, description) {
                 try {
                     const logs = JSON.parse(localStorage.getItem('activity_logs') || '[]');
@@ -1200,10 +1312,9 @@
                         type: type,
                         description: description,
                         timestamp: new Date().toISOString(),
-                        ip: 'local' // In real app, this would be actual IP
+                        ip: 'local'
                     });
 
-                    // Keep only last 1000 logs
                     if (logs.length > 1000) {
                         logs.splice(0, logs.length - 1000);
                     }
@@ -1214,7 +1325,6 @@
                 }
             }
 
-            // NEW FEATURE: Auto Backup
             createBackup() {
                 try {
                     const settings = JSON.parse(localStorage.getItem('admin_settings') || '{}');
@@ -1265,7 +1375,6 @@
                     try {
                         localStorage.setItem('current_student', JSON.stringify(this.currentStudent));
                         
-                        // Update student di array utama
                         const studentIndex = this.students.findIndex(s => s.id === this.currentStudent.id);
                         if (studentIndex !== -1) {
                             this.students[studentIndex] = { ...this.currentStudent };
@@ -1280,13 +1389,11 @@
 
         // Global functions
         function switchAuthTab(tab) {
-            // Update tabs
             document.querySelectorAll('.auth-tab').forEach(tabElement => {
                 tabElement.classList.remove('active');
             });
             document.querySelector(`[onclick="switchAuthTab('${tab}')"]`).classList.add('active');
 
-            // Update forms
             document.querySelectorAll('.auth-form').forEach(form => {
                 form.classList.remove('active');
             });
