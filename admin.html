@@ -744,7 +744,7 @@
     </div>
 
     <script>
-        // Enhanced Admin System with FIXED SYNC ISSUES
+        // FIXED: Enhanced Admin System with PROPER SYNC
         class AdminSystem {
             constructor() {
                 this.students = [];
@@ -781,12 +781,12 @@
                     this.applyFilters();
                 });
 
-                // Auto-refresh data every 3 seconds
+                // Auto-refresh data every 2 seconds for real-time sync
                 setInterval(() => {
                     if (this.isAuthenticated) {
                         this.loadStudents();
                     }
-                }, 3000);
+                }, 2000);
             }
 
             checkAdminSession() {
@@ -851,18 +851,25 @@
                 document.getElementById('admin-main').classList.remove('hidden');
             }
 
-            // FIXED: Enhanced data loading with better error handling
+            // FIXED: Enhanced data loading with PROPER SYNC
             loadStudents() {
                 try {
                     const studentData = JSON.parse(localStorage.getItem('literatreee') || '[]');
                     console.log('🔄 Admin: Loading students data:', studentData);
                     
+                    // Use the same online status calculation as student system
                     const updatedStudents = studentData.map(student => {
+                        // Check if student has current session (same logic as student system)
+                        const currentStudent = JSON.parse(localStorage.getItem('current_student') || 'null');
+                        const isCurrentlyOnline = currentStudent && currentStudent.id === student.id;
+                        
+                        // Use the same online detection as student system
                         const lastActivity = new Date(student.lastActivity || student.lastLogin || student.createdAt);
                         const now = new Date();
                         const minutesSinceLastActivity = (now - lastActivity) / (1000 * 60);
                         
-                        student.isOnline = minutesSinceLastActivity < 5;
+                        // Student is online if they have current session OR were active in last 5 minutes
+                        student.isOnline = isCurrentlyOnline || minutesSinceLastActivity < 5;
                         return student;
                     });
 
@@ -997,7 +1004,7 @@
                             <span class="px-4 py-2 rounded-xl text-base font-semibold border-2 border-darkBrown ${
                                 this.getRankColor(student.points)
                             } font-medieval">
-                                ${this.getShortRankName(student.points)}
+                                ${this.getRankName(student.points)}
                             </span>
                         </td>
                         <td class="px-6 py-5">
@@ -1024,7 +1031,7 @@
                 `).join('');
             }
 
-            // FIXED: Enhanced points addition with proper sync
+            // FIXED: Enhanced points addition with immediate sync
             showAddPointsModal(studentId) {
                 this.selectedStudentId = studentId;
                 document.getElementById('points-amount').value = 5;
@@ -1071,7 +1078,7 @@
                 document.getElementById('bulk-add-modal').classList.remove('hidden');
             }
 
-            // FIXED: Enhanced bulk points addition
+            // FIXED: Enhanced bulk points addition with immediate sync
             addPointsToAllStudents() {
                 const points = this.bulkPoints;
                 console.log('🎯 Admin: Menambah points ke semua siswa:', points);
@@ -1110,11 +1117,14 @@
                 }
             }
 
-            // FIXED: Enhanced save method with verification
+            // FIXED: Enhanced save method with immediate sync
             saveChanges() {
                 try {
                     console.log('💾 Admin: Menyimpan data siswa:', this.students);
                     localStorage.setItem('literatreee', JSON.stringify(this.students));
+                    
+                    // Trigger storage event to sync with student system
+                    window.dispatchEvent(new Event('storage'));
                     
                     // Verifikasi penyimpanan
                     const savedData = JSON.parse(localStorage.getItem('literatreee') || '[]');
@@ -1163,7 +1173,7 @@
             getRankDistribution() {
                 const distribution = {};
                 this.students.forEach(student => {
-                    const rank = this.getShortRankName(student.points);
+                    const rank = this.getRankName(student.points);
                     distribution[rank] = (distribution[rank] || 0) + 1;
                 });
                 return distribution;
@@ -1346,15 +1356,6 @@
                 if (points >= 300) return '📜 Pencari Aksara';
                 if (points >= 100) return '📚 Penjelajah Halaman';
                 return '📖 Pemula Naskah';
-            }
-
-            getShortRankName(points) {
-                if (points >= 1000) return '🏆 Master';
-                if (points >= 800) return '📗 Expert';
-                if (points >= 600) return '📘 Advanced';
-                if (points >= 300) return '📜 Intermediate';
-                if (points >= 100) return '📚 Beginner';
-                return '📖 Newbie';
             }
 
             getRankColor(points) {
